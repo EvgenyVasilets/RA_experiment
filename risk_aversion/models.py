@@ -22,7 +22,7 @@ This is the experiment investigating the nature of loss-aversion.
 class Constants(BaseConstants):
     name_in_url = 'risk_aversion'
     players_per_group = None
-    num_trial_rounds = 48
+    num_trial_rounds = 50
     num_practice_rounds = 3
     num_rounds = num_trial_rounds + num_practice_rounds
 
@@ -38,14 +38,15 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 # variables that are saved for each participant
     # demographic questions
-    demography_age = models.IntegerField(label="Your age")
+    demography_age = models.IntegerField(label="Your age", max=99, min=5)
     demography_country = models.StringField(label="What country do you live in now?")
-    demography_gender = models.IntegerField( label="What is your gender?", choices=[
+    demography_gender = models.IntegerField( label="Which gender do you identify most with?", choices=[
         [1, 'Male'],
         [2, 'Female'],
         [3, 'Other'],
+        [4, 'Prefer not to say']
     ])
-
+    strategy = models.LongStringField(label="Could you explain how did you decide to accept or reject the gambles in each trial?")
     # anwers to the questions checking the understanding of instructions
     q1 = models.StringField(label="How many decisions are you going to make (without counting the practice trials)?", blank = True)
     q2 = models.StringField(label = "How many outcomes will affect your payment?", blank = True)
@@ -233,6 +234,24 @@ class Player(BasePlayer):
                                 treatments_dic['lose_times'].append(lose_times)
                                 treatments_dic['gain_times'].append(gain_times)
                                 count += 1
+        # add 2 more fixations (0, -30 and 0, 40)
+        extra_fixations = [[-30, 0], [0, 40]]
+        for pair in extra_fixations:
+            treatments_dic['original_trial_num'].append(count)
+            treatments_dic['cluster'].append(clusters[1])
+            treatments_dic['last_fix_condition'].append(last_fix_conditions[1])
+            treatments_dic['lose_value'].append(pair[0])
+            treatments_dic['gain_value'].append(pair[1])
+            treatments_dic['gain_condition'].append('NA')
+            treatments_dic['loss_condition'].append('NA')
+            treatments_dic['number_of_fixations'].append(5)
+            time_per_fix = trial_time_clus1/5
+            treatments_dic['lose_times'].append([time_per_fix + .165, time_per_fix, time_per_fix])
+            treatments_dic['gain_times'].append([time_per_fix, time_per_fix])
+            treatments_dic['first_fix_value'].append('loss')
+            treatments_dic['last_fix_value'].append('loss')
+
+            count += 1
         treatments_df = pd.DataFrame(treatments_dic)
         # randomize the table using random-generated number (which will be the same for all trials for a specific participant)
         randomized = treatments_df.sample(frac=1, random_state=self.in_round(1).rand_int)
@@ -245,7 +264,13 @@ class Player(BasePlayer):
         if pt == 0:
             row_number = self.round_number - 1 - Constants.num_practice_rounds
         elif pt == 1:
-            row_number = random.randrange(0, len(randomized))
+            # select random trials from clusters with 2 fixations and clusters with 5 fixations. For this, choose different clusters for odd and even training trials
+            if  self.round_number % 2 == 0:
+                appropriate_trials = randomized[randomized['cluster'] == 0]
+            else:
+                appropriate_trials = randomized[randomized['cluster'] == 1]
+            row_number = int(appropriate_trials.sample().index[0])
+
         # write down the data for the participant for each row so we can see it during the data analysis
         self.original_trial_num = randomized.loc[row_number, 'original_trial_num']
         self.cluster = randomized.loc[row_number, 'cluster']
@@ -276,7 +301,7 @@ class Player(BasePlayer):
             exec("self.%s = %f" % (var, gain_fix_time))
         return randomized
     def practice_trials(self):
-        # this function defines whether these trials are training or real
+        # this function defines whether these trials are training or test
         if self.round_number > Constants.num_practice_rounds:
             self.practice_trial = 0
             return 0
