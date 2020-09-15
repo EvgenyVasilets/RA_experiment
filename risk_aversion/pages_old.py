@@ -20,32 +20,51 @@ class Attention(Page):
     def is_displayed(self):
         return self.round_number == 1
             
-class Trial_and_decision(Page):
-    form_model = 'player'
-    form_fields = ['decision', 'decision_time_ms', 'fixation_number_gains', 'fixation_number_losses']
+class Trial(Page):
     def vars_for_template(self):
         randomized_table = self.player.treatments_player()
         row_for_the_trial = randomized_table.iloc[self.player.row_number]
         return dict(
             original_trial_num = row_for_the_trial['original_trial_num'],
-            fixation_time_gain = row_for_the_trial['fixation_time_gain'],
-            fixation_time_loss = row_for_the_trial['fixation_time_loss'],
+            first_fix_value = row_for_the_trial['first_fix_value'],
+            last_fix_value = row_for_the_trial['last_fix_value'],
+            number_of_fixations = row_for_the_trial['number_of_fixations'],
+            lose_time_1 = self.player.lose_time_1,
+            lose_time_2 = self.player.lose_time_2,
+            lose_time_3 = self.player.lose_time_3,
+            lose_time_4 = self.player.lose_time_4,
+            lose_time_5 = self.player.lose_time_5,
+            gain_time_1 = self.player.gain_time_1,
+            gain_time_2 = self.player.gain_time_2,
+            gain_time_3 = self.player.gain_time_3,
+            gain_time_4 = self.player.gain_time_4,
+            gain_time_5 = self.player.gain_time_5,
+
             lose_value = row_for_the_trial['lose_value'],
             gain_value = row_for_the_trial['gain_value']
         )
 
-    # def js_vars(self):
-    #     randomized_table = self.player.treatments_player()
-    #     row_for_the_trial = randomized_table.iloc[self.player.row_number]
-    #     return dict(
-    #         first_fix_value=row_for_the_trial['first_fix_value']
-    #     )
-class Feedback(Page):
-    def vars_for_template(self):
+    def js_vars(self):
+        randomized_table = self.player.treatments_player()
+        row_for_the_trial = randomized_table.iloc[self.player.row_number]
         return dict(
-            decision = self.player.decision,
+            first_fix_value=row_for_the_trial['first_fix_value']
         )
-    pass
+class Decision(Page):
+    form_model = 'player'
+    form_fields = ['decision', 'decision_time_ms']
+    # def js_vars(self):
+    #     if self.round_number > 1:
+    #         current_ecu = self.player.in_round(self.round_number - 1).ECU
+    #     else:
+    #         current_ecu = self.player.in_round(self.round_number).ECU
+    #     lose_val = self.player.lose_value
+    #     gain_val = self.player.gain_value
+    #     return dict(
+    #         ECU_if_win = current_ecu + gain_val,
+    #         ECU_if_lose = current_ecu + lose_val,
+    #         ECU_no_change = current_ecu
+    #     )
 
 class Confidence(Page):
     form_model = 'player'
@@ -87,4 +106,4 @@ class Results(Page):
         return self.round_number == Constants.num_rounds
 
 
-page_sequence = [Instructions, Instructions2, Attention, Trial_and_decision, Feedback, Confidence, Middle_page, Demographics, Strategy_question, Results]
+page_sequence = [Instructions, Instructions2, Attention, Trial, Decision, Confidence, Middle_page, Demographics, Strategy_question, Results]
