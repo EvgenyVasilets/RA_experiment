@@ -13,7 +13,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 SESSION_CONFIGS = [
     dict(
         name='risk_aversion',
-        display_name='risk_aversion',
+        display_name='decision_making_experiment',
         num_demo_participants=1,
         app_sequence=['risk_aversion'],
     )
