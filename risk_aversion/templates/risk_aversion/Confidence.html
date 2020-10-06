@@ -131,7 +131,12 @@ h2 {
     <script type="text/javascript">
         // focus on the slider
         var el = document.getElementById('myRange')
-        el.focus()
+        el.focus();
+        el.onblur = function () {
+            setTimeout(function () {
+                el.focus();
+            });
+        };
         // remember the value
 
         document.onkeydown = function (e) {

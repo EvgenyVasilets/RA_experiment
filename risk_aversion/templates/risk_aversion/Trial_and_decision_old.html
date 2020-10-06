@@ -25,10 +25,12 @@ body {
 
 .left_container {
     position: relative;
+    text-align: center;
 }
 
 .right_container {
     position: relative;
+    left:100px;
 }
 
 .coins_table {
@@ -39,13 +41,15 @@ body {
     width: 100%;
 
 }
-
+table, th, td {
+  border: 1px solid white;
+}
 .values_left {
     color: white;
     font-size: calc((1em + 1vw)*1.5);
     position: absolute;
     top: 50%;
-    left: 80%;
+    left: 60%;
     transform: translate(-50%, -50%);
 }
 
@@ -54,7 +58,7 @@ body {
     position: absolute;
     font-size: calc((1em + 1vw)*1.5);
     top: 50%;
-    left: 20%;
+    left: 40%;
     transform: translate(-50%, -50%);
 }
 
@@ -76,7 +80,7 @@ body {
             <tr>
                 <td>
                     <div class = "left_container" id="left_container">
-                        <img class="coin" src="{% static 'global/experiment_pics/coin_left_new.png' %}">
+                        <img class="coin" src="{% static 'global/experiment_pics/coin_left.png' %}">
                         <p class="values_left"><span id="left_value"></span></p>
                     </div>
                 </td>
@@ -85,7 +89,7 @@ body {
                 </td>
                 <td>
                     <div class = "right_container" id="right_container">
-                        <img class="coin" src="{% static 'global/experiment_pics/coin_right_new.png' %}">
+                        <img class="coin" src="{% static 'global/experiment_pics/coin_right.png' %}">
                         <p class="values_right"><span id="right_value"></span></p>
                     </div>
                 </td>

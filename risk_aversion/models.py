@@ -19,7 +19,7 @@ This is the experiment investigating the nature of loss-aversion.
 class Constants(BaseConstants):
     name_in_url = 'risk_aversion'
     players_per_group = None
-    num_trial_rounds = 50
+    num_trial_rounds = 42
     num_practice_rounds = 3
     num_rounds = num_trial_rounds + num_practice_rounds
 
@@ -68,6 +68,7 @@ class Player(BasePlayer):
     rand_int = models.IntegerField()
     # Long or short
     fixations = models.StringField()
+    # Condition numbers: 1 - equal, 2 - gains are longer, 3 - gains are super longer, 4 - losses are longer, 5 - losses are super longer
     condition_number = models.IntegerField()
     # number of a trial in a non-randomised data-frame
     original_trial_num = models.IntegerField()
@@ -113,8 +114,7 @@ class Player(BasePlayer):
         treatments_dic = {
             'original_trial_num': [],
             'condition_number': [],
-            'fixations': [],
-            'longer_exposure_to': [],
+            'condition_name': [],
             'lose_value': [],
             'gain_value': [],
             'gain_condition':[],
@@ -124,8 +124,7 @@ class Player(BasePlayer):
         }
 
 
-        fixations = ['long', 'short']  # long\short
-        longer_exposure_to = ['losses_are_longer', 'equal', 'gains_are_longer']  # -1 - losses, 0 - equal, 1 - gains (used to be last_fix_longer)
+        condition_names = ['losses_are_longer', 'losses_are_super_longer', 'equal', 'gains_are_longer', 'gains_are_super_longer']  # -1 - losses, 0 - equal, 1 - gains (used to be last_fix_longer)
         # Losses
         low_losses = list(range(-10, -20, -1))
         high_losses = list(range(-20, -30, -1))
@@ -135,64 +134,58 @@ class Player(BasePlayer):
         high_gains = list(range(30, 40, 1))
         gains_lists = [low_gains, high_gains]
         # Duration of long and short fixations (in ms)
-        fixation_duration_short = 300
-        fixation_duration_long = 400
-        # How much longer is the fixation in non-equal conditions
-        fix_larger_by = 1.5
+        fixation_duration = 400
+        fixation_duration_long = 600
+        fixation_duration_super_long = 800
         # Counter of the rows in the treatment table
         count = 1
         # Create a dictionary with all conditions
         # Each condition will be repeated 2 times
         for round in range(2):
-            for fixation in fixations:
-                for which_longer in longer_exposure_to:
-                    for losses in losses_lists:
-                        for gains in gains_lists:
-                            gain = random.choice(gains)
-                            lose = random.choice(losses)
-                            treatments_dic['original_trial_num'].append(count)
-                            treatments_dic['fixations'].append(fixation)
-                            treatments_dic['longer_exposure_to'].append(which_longer)
-                            treatments_dic['lose_value'].append(lose)
-                            treatments_dic['gain_value'].append(gain)
-                            # Define the value conditions
-                            if gains == low_gains:
-                                treatments_dic['gain_condition'].append('low_gains')
-                            elif gains == high_gains:
-                                treatments_dic['gain_condition'].append('high_gains')
-                            if losses == high_losses:
-                                treatments_dic['loss_condition'].append('high_losses')
-                            elif losses == low_losses:
-                                treatments_dic['loss_condition'].append('low_losses')
-                            # Define fixation times for gains and losses in the trial (depends on fixation and longer exposure to)
-                            fixation_and_longer = fixation + '_' + which_longer
-                            def fix_times_gains_and_losses(fixation_and_longer):
-                                # The function returns 3 values: first one is gain, the second one is the loss fixation time and the third is the condition number
-                                return {
-                                    'long_losses_are_longer': [fixation_duration_long, fixation_duration_long * fix_larger_by, 3],
-                                    'long_gains_are_longer': [fixation_duration_long * fix_larger_by, fixation_duration_long, 2],
-                                    'long_equal': [fixation_duration_long, fixation_duration_long, 1],
-                                    'short_losses_are_longer': [fixation_duration_short, fixation_duration_short * fix_larger_by, 6],
-                                    'short_gains_are_longer': [fixation_duration_short * fix_larger_by, fixation_duration_short, 5],
-                                    'short_equal': [fixation_duration_short, fixation_duration_short, 4],
-                                }[fixation_and_longer]
-                            fixation_time_gain, fixation_time_loss, condition_number = fix_times_gains_and_losses(fixation_and_longer)
-                            treatments_dic['fixation_time_gain'].append(fixation_time_gain)
-                            treatments_dic['fixation_time_loss'].append(fixation_time_loss)
-                            treatments_dic['condition_number'].append(condition_number)
+            for condition_name in condition_names:
+                for losses in losses_lists:
+                    for gains in gains_lists:
+                        gain = random.choice(gains)
+                        lose = random.choice(losses)
+                        treatments_dic['original_trial_num'].append(count)
+                        treatments_dic['condition_name'].append(condition_name)
+                        treatments_dic['lose_value'].append(lose)
+                        treatments_dic['gain_value'].append(gain)
+                        # Define the value conditions
+                        if gains == low_gains:
+                            treatments_dic['gain_condition'].append('low_gains')
+                        elif gains == high_gains:
+                            treatments_dic['gain_condition'].append('high_gains')
+                        if losses == high_losses:
+                            treatments_dic['loss_condition'].append('high_losses')
+                        elif losses == low_losses:
+                            treatments_dic['loss_condition'].append('low_losses')
+                        # Define fixation times for gains and losses in the trial (depends on fixation and longer exposure to)
+                        def fix_times_gains_and_losses(condition_name):
+                            # The function returns 3 values: first one is gain, the second one is the loss fixation time and the third is the condition number
+                            return {
+                                'losses_are_longer': [fixation_duration, fixation_duration_long, 4],
+                                'losses_are_super_longer': [fixation_duration, fixation_duration_super_long, 5],
+                                'gains_are_longer': [fixation_duration_long, fixation_duration, 2],
+                                'gains_are_super_longer': [fixation_duration_super_long, fixation_duration, 3],
+                                'equal': [fixation_duration, fixation_duration, 1],
+                            }[condition_name]
+                        fixation_time_gain, fixation_time_loss, condition_number = fix_times_gains_and_losses(condition_name)
+                        treatments_dic['fixation_time_gain'].append(fixation_time_gain)
+                        treatments_dic['fixation_time_loss'].append(fixation_time_loss)
+                        treatments_dic['condition_number'].append(condition_number)
 
         # add 2 more fixations (0, -30 and 0, 40)
         extra_fixations = [[-30, 0], [0, 40]]
         for pair in extra_fixations:
             treatments_dic['original_trial_num'].append(count)
-            treatments_dic['fixations'].append(fixations[1])
-            treatments_dic['longer_exposure_to'].append(longer_exposure_to[1])
+            treatments_dic['condition_name'].append('check_question')
             treatments_dic['lose_value'].append(pair[0])
             treatments_dic['gain_value'].append(pair[1])
             treatments_dic['gain_condition'].append(None)
             treatments_dic['loss_condition'].append(None)
-            treatments_dic['fixation_time_loss'].append(fixation_duration_long * fix_larger_by)
-            treatments_dic['fixation_time_gain'].append(fixation_duration_long * fix_larger_by)
+            treatments_dic['fixation_time_loss'].append(fixation_duration)
+            treatments_dic['fixation_time_gain'].append(fixation_duration)
             treatments_dic['condition_number'].append(99)
             count += 1
         treatments_df = pd.DataFrame(treatments_dic)
@@ -207,19 +200,18 @@ class Player(BasePlayer):
         if pt == 0:
             row_number = self.round_number - 1 - Constants.num_practice_rounds
         elif pt == 1:
-            # select random trials from fixations with 2 fixations and fixations with 5 fixations. For this, choose different fixations for odd and even training trials
+            # select random trials from trials with equal and not equal fixations
             if  self.round_number % 2 == 0:
-                appropriate_trials = randomized[randomized['fixations'] == 'long']
+                appropriate_trials = randomized[randomized['condition_name'] == 'equal']
             else:
-                appropriate_trials = randomized[randomized['fixations'] == 'short']
+                appropriate_trials = randomized[randomized['condition_name'] != 'equal']
             row_number = int(appropriate_trials.sample().index[0])
 
         # write down the data for the participant for each row so we can see it during the data analysis
         self.original_trial_num = randomized.loc[row_number, 'original_trial_num']
-        self.fixations = randomized.loc[row_number, 'fixations']
         self.lose_value = randomized.loc[row_number, 'lose_value']
         self.gain_value = randomized.loc[row_number, 'gain_value']
-        self.longer_exposure_to = randomized.loc[row_number, 'longer_exposure_to']
+        self.longer_exposure_to = randomized.loc[row_number, 'condition_name']
         self.row_number = row_number
         self.gain_condition = randomized.loc[row_number, 'gain_condition']
         self.loss_condition = randomized.loc[row_number, 'loss_condition']
