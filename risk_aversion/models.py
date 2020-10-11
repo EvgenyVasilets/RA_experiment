@@ -33,6 +33,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    # assign prolific id
 # variables that are saved for each participant
     # demographic questions
     demography_age = models.IntegerField(label="Your age", max=99, min=5)

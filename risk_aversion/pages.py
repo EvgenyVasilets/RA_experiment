@@ -50,10 +50,13 @@ class Feedback(Page):
 class Confidence(Page):
     form_model = 'player'
     form_fields = ['confidence']
-    pass
+    def is_displayed(self):
+        decision = self.player.decision
+        return decision != -1
 
 class ResultsWaitPage(WaitPage):
-    pass
+    def is_displayed(self):
+        return self.round_number == Constants.num_practice_rounds + (Constants.num_trial_rounds // 2)
 
 class Middle_page(Page):
     def is_displayed(self):
