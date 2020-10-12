@@ -36,7 +36,7 @@ ROOMS = [
     dict(
         name='DM_EXP_room',
         display_name='Econ DM_EXP_room class',
-        participant_label_file='_rooms/labels.txt',
+        # participant_label_file='_rooms/labels.txt',
     ),
 ]
 
