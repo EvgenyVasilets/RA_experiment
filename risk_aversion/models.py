@@ -64,6 +64,7 @@ class Player(BasePlayer):
         ],
         blank = True
     )
+    PROLIFIC_PID = models.StringField()
     # random generated int that defines randomisation order for each participant
     confidence = models.IntegerField(blank=True)
     rand_int = models.IntegerField()
