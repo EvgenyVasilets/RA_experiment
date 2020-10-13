@@ -220,6 +220,7 @@ class Player(BasePlayer):
         self.fixation_time_loss = randomized.loc[row_number, 'fixation_time_loss']
         self.fixation_time_gain = randomized.loc[row_number, 'fixation_time_gain']
         self.condition_number = randomized.loc[row_number, 'condition_number']
+        self.PROLIFIC_PID = self.participant.label
 
         return randomized
     def practice_trials(self):
