@@ -66,6 +66,7 @@ class Player(BasePlayer):
     )
     # random generated int that defines randomisation order for each participant
     confidence = models.IntegerField(blank=True)
+    prolific_id = models.StringField()
     rand_int = models.IntegerField()
     # Long or short
     fixations = models.StringField()
@@ -111,6 +112,7 @@ class Player(BasePlayer):
         return final_value
 
     def treatments_player(self):
+        self.prolific_id = self.participant.label
         # create the dictionary with the variables
         treatments_dic = {
             'original_trial_num': [],
