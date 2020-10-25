@@ -1,6 +1,7 @@
 from numpy import random
 from otree.api import (
     models,
+    widgets,
     BaseConstants,
     BaseSubsession,
     BaseGroup,
@@ -36,6 +37,10 @@ class Player(BasePlayer):
     # assign prolific id
 # variables that are saved for each participant
     # demographic questions
+    consent = models.IntegerField(choices=[
+        [1, 'I agree to the conditions and want to participate in the study.'],
+         [2, 'I do not agree to participate.']
+    ], widget=widgets.RadioSelect)
     demography_age = models.IntegerField(label="Your age", max=99, min=5)
     demography_country = models.StringField(label="What country do you live in now?")
     demography_gender = models.IntegerField( label="Which gender do you identify most with?", choices=[

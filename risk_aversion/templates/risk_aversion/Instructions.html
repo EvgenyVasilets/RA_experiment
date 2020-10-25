@@ -16,7 +16,11 @@
 
     .centered {
         text-align: center;
+        max-width:100%;
+        max-height:100%;
     }
+
+
     table {
         margin-left: auto;
         margin-right: auto;
@@ -27,48 +31,18 @@
 <body>
 <h1 style="text-align: center;">Instructions</h1>
     <div class="before_practice">
-        <p>In the following study you are about to make decisions of whether to accept a lottery or not. These lotteries
-            will give you with equal probabilities (fifty-fifty) a positive or negative outcome. You are going to choose
-            whether to accept or reject one a total of 48 different lotteries. The overall duration of the study should
-            be of no more than 10-15 minutes. Each outcome in these lotteries consists of a positive or negative amount
-            of points (1 point = 0.19 EUR). In the end, one of these lotteries will be randomly chosen and added
-            (or subtracted) to your initial show-up fee, that you received for participating in this study.</p>
-        <p>In each trial, the lottery will be presented by showing you each outcome separately one to three times, in an alternating matter. </p>
-        <table class="centered">
-                <tr>
-                    <td class="gifs">
-                        <h4>One time per outcome</h4>
-                        <img src="{% static 'global/experiment_pics/gif one time per outcome.gif' %}">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="gifs">
-                        <h4>Two to three times per outome</h4>
-                        <img src="{% static 'global/experiment_pics/gif two to three times per outome.gif' %}">
-                    </td>
-                </tr>
-        </table>
-        <p>After seeing the outcomes, we will ask you whether you would accept or reject this lottery. If you wish <u style="color:MediumSeaGreen;">to accept</u>,
+        <p>Thank you for participating in our experiment on how people react to different decision situations. In the current study you will be shown 44 different lotteries and will be asked to make decisions about whether you wish to accept each lottery or not. These lotteries will offer you a positive and a negative outcome with equal probability (fifty-fifty). Note that gain and loss amounts will change for each new decision situation, so consider each lottery carefully before you make a decision. Your decisions will affect you bonus payments as outlined below. The overall duration of the study should be about 20-25 minutes. </p>
+        <p>The outcomes in these lotteries are shown as Experimental Currency Units (ECU). Each ECU is equivalent to 2.5p (0.025 Pounds). Because you can also incur losses, you have been endowed with 40 ECUs. At the end of the experiment, one of these lotteries will be randomly chosen. If you chose to accept the lottery on the payout relevant trial, it will be played out via a virtual coin flip. Depending on the outcome of the coin flip, the gains may be added to your initial endowment if the good state occurs (e.g., heads), or the losses may be subtracted from it if the bad state occurs (e.g., tails). Therefore, your decisions in the experiment together with the outcome of the coin flip will determine your bonus payment, which will be added to your participation fee. </p>
+
+        <p>In each trial, the lottery will be presented by showing you each outcome separately. These two outcomes are equally likely. You have a maximum of 6 seconds to make a decision, but you can do so quicker if you like. If you wish <u style="color:MediumSeaGreen;">to accept the lottery</u>,
             then press the <b style="color:MediumSeaGreen;">upwards key (↑)</b>. In case you want <u style="color:Tomato;">to reject</u>, press the <b style="color:Tomato;">downward key (↓)</b>.
-            Once you have made your decision, you will see it on your screen. You will have 6 seconds to make a decision.
-            In case you don't answer within 6 seconds, we will ask you to answer faster, and if that trial gets selected
-            in the end, you will get the negative outcome for certain. </p>
-        <table>
-            <tr class="centered">
-                <td><h4>Accepted gambles</h4></td>
-                <td><h4>Rejected gambles</h4></td>
-                <td><h4>Timeout</h4></td>
-            </tr>
-            <tr>
-                <td><img class="feedback" src="{% static 'global/experiment_pics/accepted.png' %}"></td>
-                <td><img class="feedback" src="{% static 'global/experiment_pics/rejected.png' %}"></td>
-                <td><img class="feedback" src="{% static 'global/experiment_pics/faster.png' %}"></td>
-            </tr>
-        </table>
+            Once you have made your decision, you will receive feedback on your screen. In case you don't answer within 6 seconds, we will ask you to answer faster, and if that trial gets selected in the end, you will get the negative outcome for certain.</p>
+        <div class="centered">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="{% static 'global/experiment_pics/gif one time per outcome.gif' %}">
+        </div>
+
         <h4 class="centered" style="margin-top: 50px">Questions</h4>
-        <p>Now we will ask you a couple of questions regarding the instructions in order to see
-            if you understood correctly. After, we will show you 3 practice trials for you to get used to the process. The final prize will not come from these 3 trials.
-            After we will notify you and the real decisions will start. </p>
+        <p>Now we will ask you a couple of questions regarding the instructions in order to see if you understood correctly. After, we will show you 3 practice trials for you to get used to making decisions in the current experiment. The decisions on the next 3 trials will not count toward the final payment, they are simply there for you to try out how to make decisions in this experiment. After you completed the practice trials, we will notify you and  the actual experiment will start, with decisions that can count towards your final payout. </p>
 
         {% formfield player.q1 %}
         {% formfield player.q2 %}
