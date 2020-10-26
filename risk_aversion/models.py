@@ -20,7 +20,7 @@ This is the experiment investigating the nature of loss-aversion.
 class Constants(BaseConstants):
     name_in_url = 'risk_aversion'
     players_per_group = None
-    num_trial_rounds = 42
+    num_trial_rounds = 44
     num_practice_rounds = 3
     num_rounds = num_trial_rounds + num_practice_rounds
 
@@ -168,7 +168,7 @@ class Player(BasePlayer):
                             treatments_dic['loss_condition'].append('high_losses')
                         elif losses == low_losses:
                             treatments_dic['loss_condition'].append('low_losses')
-                        # Define fixation times for gains and losses in the trial (depends on fixation and longer exposure to)
+                        # Define fixation times for gains and losses in the trial
                         def fix_times_gains_and_losses(condition_name):
                             # The function returns 3 values: first one is gain, the second one is the loss fixation time and the third is the condition number
                             return {
@@ -185,17 +185,18 @@ class Player(BasePlayer):
 
         # add 2 more fixations (0, -30 and 0, 40)
         extra_fixations = [[-30, 0], [0, 40]]
-        for pair in extra_fixations:
-            treatments_dic['original_trial_num'].append(count)
-            treatments_dic['condition_name'].append('check_question')
-            treatments_dic['lose_value'].append(pair[0])
-            treatments_dic['gain_value'].append(pair[1])
-            treatments_dic['gain_condition'].append(None)
-            treatments_dic['loss_condition'].append(None)
-            treatments_dic['fixation_time_loss'].append(fixation_duration)
-            treatments_dic['fixation_time_gain'].append(fixation_duration)
-            treatments_dic['condition_number'].append(99)
-            count += 1
+        for index in range(2):
+            for pair in extra_fixations:
+                treatments_dic['original_trial_num'].append(count)
+                treatments_dic['condition_name'].append('attention_check')
+                treatments_dic['lose_value'].append(pair[0])
+                treatments_dic['gain_value'].append(pair[1])
+                treatments_dic['gain_condition'].append(None)
+                treatments_dic['loss_condition'].append(None)
+                treatments_dic['fixation_time_loss'].append(fixation_duration)
+                treatments_dic['fixation_time_gain'].append(fixation_duration)
+                treatments_dic['condition_number'].append(99)
+                count += 1
         treatments_df = pd.DataFrame(treatments_dic)
         # randomize the table using a randomly generated number (which will be the same for all trials for a specific participant)
         randomized = treatments_df.sample(frac=1, random_state=self.in_round(1).rand_int)

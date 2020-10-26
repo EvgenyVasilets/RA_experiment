@@ -10,7 +10,7 @@ class ConsentForm(Page):
 
 class ConsentIfFalse(Page):
     def is_displayed(self):
-        return self.player.consent == 2
+        return self.player.in_round(1).consent == 2
 
 class Instructions(Page):
     form_model = 'player'
@@ -63,7 +63,7 @@ class Confidence(Page):
     form_fields = ['confidence']
     def is_displayed(self):
         decision = self.player.decision
-        return (decision != -1) and (self.player.consent == 1)
+        return (decision != -1) and (self.player.in_round(1).consent == 1)
 
 class ResultsWaitPage(WaitPage):
     def is_displayed(self):
