@@ -10,7 +10,7 @@ class ConsentForm(Page):
 
 class ConsentIfFalse(Page):
     def is_displayed(self):
-        return self.player.in_round(1).consent == 2
+        return (self.player.in_round(1).consent == 2) and (self.round_number == 1)
 
 class Instructions(Page):
     form_model = 'player'
