@@ -66,8 +66,7 @@ class Confidence(Page):
         return (decision != -1) and (self.player.in_round(1).consent == 1)
 
 class ResultsWaitPage(WaitPage):
-    def is_displayed(self):
-        return (self.round_number == Constants.num_practice_rounds + (Constants.num_trial_rounds // 2)) and (self.player.in_round(1).consent == 1)
+    pass
 
 class Middle_page(Page):
     def is_displayed(self):

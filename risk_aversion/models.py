@@ -73,8 +73,6 @@ class Player(BasePlayer):
     confidence = models.IntegerField(blank=True)
     prolific_id = models.StringField()
     rand_int = models.IntegerField()
-    # Long or short
-    fixations = models.StringField()
     # Condition numbers: 1 - equal, 2 - gains are longer, 3 - gains are super longer, 4 - losses are longer, 5 - losses are super longer
     condition_number = models.IntegerField()
     # number of a trial in a non-randomised data-frame
@@ -82,7 +80,7 @@ class Player(BasePlayer):
     # 1 = accepted, 0 = rejected, -1 = no decision was made
     decision = models.IntegerField(blank=True)
     # smaller,equal,larger
-    longer_exposure_to = models.StringField()
+    condition_name = models.StringField()
     # values in ECU
     lose_value = models.IntegerField()
     gain_value = models.IntegerField()
@@ -102,6 +100,8 @@ class Player(BasePlayer):
     # record the number of fixations for losses and gains
     fixation_number_gains = models.IntegerField(blank=True)
     fixation_number_losses = models.IntegerField(blank=True)
+    # each condition is repeated 2 times, so the repetition variable tracks this
+    repetition = models.IntegerField()
     def lottery(self):
     # this function defines how much a participant wins or loses at the end of the experiment.
         values = []
@@ -120,6 +120,7 @@ class Player(BasePlayer):
         self.prolific_id = self.participant.label
         # create the dictionary with the variables
         treatments_dic = {
+            'repetition': [],
             'original_trial_num': [],
             'condition_number': [],
             'condition_name': [],
@@ -149,7 +150,7 @@ class Player(BasePlayer):
         count = 1
         # Create a dictionary with all conditions
         # Each condition will be repeated 2 times
-        for round in range(2):
+        for repetition in range(2):
             for condition_name in condition_names:
                 for losses in losses_lists:
                     for gains in gains_lists:
@@ -159,6 +160,7 @@ class Player(BasePlayer):
                         treatments_dic['condition_name'].append(condition_name)
                         treatments_dic['lose_value'].append(lose)
                         treatments_dic['gain_value'].append(gain)
+                        treatments_dic['repetition'].append(repetition)
                         # Define the value conditions
                         if gains == low_gains:
                             treatments_dic['gain_condition'].append('low_gains')
@@ -182,10 +184,10 @@ class Player(BasePlayer):
                         treatments_dic['fixation_time_gain'].append(fixation_time_gain)
                         treatments_dic['fixation_time_loss'].append(fixation_time_loss)
                         treatments_dic['condition_number'].append(condition_number)
-
+                        count+= 1
         # add 2 more fixations (0, -30 and 0, 40)
         extra_fixations = [[-30, 0], [0, 40]]
-        for index in range(2):
+        for repetition in range(2):
             for pair in extra_fixations:
                 treatments_dic['original_trial_num'].append(count)
                 treatments_dic['condition_name'].append('attention_check')
@@ -196,10 +198,13 @@ class Player(BasePlayer):
                 treatments_dic['fixation_time_loss'].append(fixation_duration)
                 treatments_dic['fixation_time_gain'].append(fixation_duration)
                 treatments_dic['condition_number'].append(99)
+                treatments_dic['repetition'].append(repetition)
                 count += 1
         treatments_df = pd.DataFrame(treatments_dic)
         # randomize the table using a randomly generated number (which will be the same for all trials for a specific participant)
-        randomized = treatments_df.sample(frac=1, random_state=self.in_round(1).rand_int)
+        randomized_mixed_repetitions = treatments_df.sample(frac=1, random_state=self.in_round(1).rand_int)
+        # make sure that first repetition is shown on the first half and the second is on the second half
+        randomized = randomized_mixed_repetitions.set_index('repetition', drop=False).sort_index()
         # re-index the new table in order so we could present the new randomized table from start to the end
         randomized['new_indexing'] = list(range(0, len(randomized)))
         randomized = randomized.set_index(randomized['new_indexing'])
@@ -210,7 +215,7 @@ class Player(BasePlayer):
             row_number = self.round_number - 1 - Constants.num_practice_rounds
         elif pt == 1:
             # select random trials from trials with equal and not equal fixations
-            if  self.round_number % 2 == 0:
+            if self.round_number % 2 == 0:
                 appropriate_trials = randomized[randomized['condition_name'] == 'equal']
             else:
                 appropriate_trials = randomized[randomized['condition_name'] != 'equal']
@@ -220,14 +225,14 @@ class Player(BasePlayer):
         self.original_trial_num = randomized.loc[row_number, 'original_trial_num']
         self.lose_value = randomized.loc[row_number, 'lose_value']
         self.gain_value = randomized.loc[row_number, 'gain_value']
-        self.longer_exposure_to = randomized.loc[row_number, 'condition_name']
+        self.condition_name = randomized.loc[row_number, 'condition_name']
         self.row_number = row_number
         self.gain_condition = randomized.loc[row_number, 'gain_condition']
         self.loss_condition = randomized.loc[row_number, 'loss_condition']
         self.fixation_time_loss = randomized.loc[row_number, 'fixation_time_loss']
         self.fixation_time_gain = randomized.loc[row_number, 'fixation_time_gain']
         self.condition_number = randomized.loc[row_number, 'condition_number']
-
+        self.repetition = randomized.loc[row_number, 'repetition']
         return randomized
     def practice_trials(self):
         # this function defines whether these trials are training or test
@@ -237,5 +242,3 @@ class Player(BasePlayer):
         else:
             self.practice_trial = 1
             return 1
-
-
