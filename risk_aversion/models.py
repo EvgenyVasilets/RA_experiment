@@ -36,20 +36,157 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     # assign prolific id
 # variables that are saved for each participant
+# variables for Questionnaire
+    QT1 = models.IntegerField(label=' I plan tasks carefully.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT2 = models.IntegerField(label=' I do things without thinking.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT3 = models.IntegerField(label=' I make-up my mind quickly.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT4 = models.IntegerField(label=' I am happy-go-lucky.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT5 = models.IntegerField(label=' I don’t “pay attention.”',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT6 = models.IntegerField(label=' I have “racing” thoughts.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT7 = models.IntegerField(label=' I plan trips well ahead of time.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT8 = models.IntegerField(label=' I am self controlled.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT9 = models.IntegerField(label=' I concentrate easily.',
+                              choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                       [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT10 = models.IntegerField(label=' I save regularly.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT11 = models.IntegerField(label=' I “squirm” at plays or lectures.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT12 = models.IntegerField(label=' I am a careful thinker.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT13 = models.IntegerField(label=' I plan for job security.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT14 = models.IntegerField(label=' I say things without thinking.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT15 = models.IntegerField(label=' I like to think about complex problems.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT16 = models.IntegerField(label=' I change jobs.', choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                                                 [4, 'Almost Always/Always']],
+                               widget=widgets.RadioSelect)
+    QT17 = models.IntegerField(label=' I act “on impulse.”',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT18 = models.IntegerField(label=' I get easily bored when solving thought problems.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT19 = models.IntegerField(label=' I act on the spur of the moment.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT20 = models.IntegerField(label=' I am a steady thinker.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT21 = models.IntegerField(label=' I change residences.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT22 = models.IntegerField(label=' I buy things on impulse.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT23 = models.IntegerField(label=' I can only think about one thing at a time.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT24 = models.IntegerField(label=' I change hobbies.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT25 = models.IntegerField(label=' I spend or charge more than I earn.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT26 = models.IntegerField(label=' I often have extraneous thoughts when thinking.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT27 = models.IntegerField(label=' I am more interested in the present than the future.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT28 = models.IntegerField(label=' I am restless at the theater or lectures.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT29 = models.IntegerField(label=' I like puzzles.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
+    QT30 = models.IntegerField(label=' I am future oriented.',
+                               choices=[[1, 'Rarely/Never'], [2, 'Occasionally'], [3, 'Often'],
+                                        [4, 'Almost Always/Always']], widget=widgets.RadioSelect)
     # demographic questions
     consent = models.IntegerField(choices=[
         [1, 'I agree to the conditions and want to participate in the study.'],
-         [2, 'I do not agree to participate.']
+        [2, 'I do not agree to participate.']
     ], widget=widgets.RadioSelect)
     demography_age = models.IntegerField(label="Your age", max=99, min=5)
-    demography_country = models.StringField(label="What country do you live in now?")
-    demography_gender = models.IntegerField( label="Which gender do you identify most with?", choices=[
+    demography_country = models.StringField(label="What country do you live in now?", blank=True)
+    demography_gender = models.IntegerField(label="Which gender do you identify most with?", choices=[
         [1, 'Male'],
         [2, 'Female'],
         [3, 'Other'],
         [4, 'Prefer not to say']
     ])
-    strategy = models.LongStringField(label="Could you explain how did you decide to accept or reject the gambles in each trial?")
+    demography_nationality = models.StringField(label= "Nationality", blank=True)
+    q_statistics = models.IntegerField(label = "Have you ever been instructed in Statistics and/or Calculus?", choices = [
+        [1, 'Yes'],
+        [2, 'No'],
+        [3, 'Do not know']
+    ], widget = widgets.RadioSelect)
+    q_study = models.StringField(label = "What did you study?", blank=True)
+    q_purpose = models.LongStringField(label = "What do you think it was the purpose of this study?")
+    q_strategy_binary = models.IntegerField(label = "Did you use a specific strategy?", choices = [
+        [1, "Yes"],
+        [2, "No"]
+    ], widget = widgets.RadioSelect)
+    strategy = models.LongStringField(label="Could you explain how did you decide to accept or reject the gambles in each trial? (max - 250 characters)", max_length=250)
+    q_other_exp = models.IntegerField(label = "Have you ever participated in an incentivized economic experiment like this one?", choices = [
+        [1, "Yes"],
+        [2, "No"],
+        [3, "Do not know"]
+    ], widget=widgets.RadioSelect)
+    q_improve = models.LongStringField(label = "Please help us improve our previous studies. Was there something that was not clear in the instructions? (max - 250 characters)", max_length=250)
+    q_own_corona_concern = models.IntegerField(label = "Are you concerned about your own health due to the novel coronavirus?", choices = [
+        [1, "Very concerned"],
+        [2, "Concerned"],
+        [3, "Neither concerned nor unconcerned"],
+        [4, "Unconcerned"],
+        [5, "Very Unconcerned"]
+    ], widget=widgets.RadioSelect)
+    q_relat_corona_concern = models.IntegerField(label = "Are you concerned about the health of your family members due to the novel coronavirus?", choices = [
+        [1, "Very concerned"],
+        [2, "Concerned"],
+        [3, "Neither concerned nor unconcerned"],
+        [4, "Unconcerned"],
+        [5, "Very Unconcerned"]
+    ], widget=widgets.RadioSelect)
+    q_own_corona_likelihood = models.IntegerField(label = "How likely do you think it is, that you will get infected by Covid-19 and experience serious health problems before the end of 2021?", choices = [
+        [1, "Very Unlikely"],
+        [2, "Unlikely"],
+        [3, "Neither unlikely nor likely"],
+        [4, "Likely"],
+        [5, "Very Likely"]
+    ], widget=widgets.RadioSelect)
+    q_relat_corona_likelihood = models.IntegerField(label = "How likely do you think it is, that someone you know will die from Covid-19 before the end of 2021?", choices = [
+        [1, "Very Unlikely"],
+        [2, "Unlikely"],
+        [3, "Neither unlikely nor likely"],
+        [4, "Likely"],
+        [5, "Very Likely"]
+    ], widget=widgets.RadioSelect)
     # anwers to the questions checking the understanding of instructions
     q1 = models.StringField(label="How many decisions are you going to make (without counting the practice trials)?", blank = True)
     q2 = models.StringField(label = "How many outcomes will affect your payment?", blank = True)
@@ -103,18 +240,41 @@ class Player(BasePlayer):
     # each condition is repeated 2 times, so the repetition variable tracks this
     repetition = models.IntegerField()
     def lottery(self):
-    # this function defines how much a participant wins or loses at the end of the experiment.
-        values = []
-        for ind in range(Constants.num_rounds):
-            rnd_num = ind+1
-            if (self.in_round(rnd_num).decision == 1) & (self.in_round(rnd_num).practice_trials() == 0):
-                win_value = random.choice([self.in_round(rnd_num).gain_value, self.in_round(rnd_num).lose_value])
-                values.append(win_value)
-        if not values:
-            final_value = 0
+        random.seed(self.in_round(1).rand_int)
+        winning_round = random.choice(range(1, Constants.num_rounds+1))
+        winning_value_gain = self.in_round(winning_round).gain_value
+        winning_value_loss = self.in_round(winning_round).lose_value
+        decision_in_winning_round = self.in_round(winning_round).decision
+        if decision_in_winning_round == 1:
+            random.seed(self.in_round(1).rand_int)
+            final_value = random.choice([winning_value_loss, winning_value_gain])
+        elif decision_in_winning_round == -1:
+            final_value = winning_value_loss
         else:
-            final_value = random.choice(values)
-        return final_value
+            final_value = 0
+        final_value_and_lottery = [final_value, winning_round, decision_in_winning_round]
+        return final_value_and_lottery
+    # Error messages
+    # def demography_country_error_message(self, value):
+    #     countries = ["My country is not listed", "Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"]
+    #     countries_lower = [country.lower() for country in countries]
+    #     if not value.lower() in countries_lower:
+    #         return "Please, choose the country name from the suggested list. If your country is not in a list, type 'My country is not listed'."
+    #
+    # def demography_nationality_error_message(self, value):
+    #     countries = ["My country is not listed", "Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"]
+    #     countries_lower = [country.lower() for country in countries]
+    #     if not value.lower() in countries_lower:
+    #         return "Please, choose the nationality from the suggested list. If your nationality is not in a list, type 'My country is not listed'."
+    #
+    # def q_study_error_message(self, value):
+    #     subjects = ["Other", "Accounting and Finance", "Agriculture & Forestry", "Anatomy & Physiology", "Anthropology", "Archaeology", "Architecture", "Area Studies", "Art & Design", "Astronomy", "Biological Sciences", "Built Environment", "Business & Management Studies", "Chemistry", "Classics & Ancient History", "Communication and Media Studies", "Computer Science and Information Systems", "Dentistry", "Development Studies", "Earth and Marine Sciences", "Economics and Econometrics", "Education and Training", "Engineering - Aeronautical", "Engineering - Chemical", "Engineering - Civil and Structural", "Engineering - Electrical and Electronic", "Engineering - General", "Engineering - Manufacturing & Production", "Engineering - Mechanical", "Engineering - Mineral & Mining", "Engineering - Petroleum", "Engineering Management", "English Language and Literature", "Environmental Studies", "Ethnicity, Gender and Diversity", "Finance", "Geography", "Geology", "Geophysics", "Hospitality & Leisure Management", "Human Resources Management", "International Relations/Studies/Affairs", "Journalism", "Law and Legal Studies", "Library & Information Management", "Linguistics", "Logistics / Supply Chain Management", "Marketing", "Materials Sciences", "Mathematics", "Medicine", "Medicine Related Studies", "Modern Languages", "Nursing", "Performing Arts", "Pharmacology", "Pharmacy & Pharmacology", "Philosophy", "Physics & Astronomy", "Politics", "Psychology", "Public Policy", "Sociology", "Sports-related Courses", "Statistics and Operational Research", "Theology, Divinity & Religious Studies", "Urban Planning", "Veterinary Science", "Zoology"]
+    #     subjects_lower = [subject.lower() for subject in subjects]
+    #     if not value.lower() in subjects_lower:
+    #         return "Please, choose the subject name from the suggested list. If your subject is not in a list, type 'Other'."
+
+
+
 
     def treatments_player(self):
         self.prolific_id = self.participant.label

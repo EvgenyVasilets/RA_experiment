@@ -3,7 +3,7 @@
 
 {% block title %}
 <p style="text-align: center;">Almost done!</p>
-<p style="font: 16px Arial;">Before we show you how much you have won, please, answer few questions about yourself.</p>
+<p style="font: 16px Arial;">Before we show you how much you have won, please, answer few questions.</p>
 {% endblock %}
 
 {% block content %}
@@ -79,18 +79,41 @@ input[type=submit] {
 
 
 <!--Make sure the form has the autocomplete function switched off:-->
+
 <form autocomplete="off" action="/action_page.php">
-  <div class="autocomplete" style="width:300px;">
-    <p><b>What country do you currently live in?</p>
-    <p style="font:14px Arial; padding: 0px;">Please, type in English.</p>
-      <input id="myInput" type="text" name="demography_country" placeholder="Country">
+  <div class="autocomplete">
+    <p>Nationality</p>
+    <input id="demography_nationality" type="text" name="demography_nationality" placeholder="Nationality">
+  </div>
+  <div class="autocomplete">
+    <p>What country do you currently live in?</p>
+      <input id="demography_country" type="text" name="demography_country" placeholder="Country">
+  </div>
+  <div class="autocomplete">
+    <p>What did you study?</p>
+     <p style="font:14px Arial; padding: 0px;">Please, select the most appropriate option, or choose "Other" if you cannot find your subject.</p>
+    <input id="q_study" type="text" name="q_study" placeholder="Subject">
   </div>
 </form>
+
 {% formfield player.demography_age %}
 {% formfield player.demography_gender %}
-    <button class="next_button btn btn-primary btn-large" id="Button">Next</button>
+{% formfield player.q_statistics %}
+{% formfield player.q_purpose %}
+{% formfield player.q_strategy_binary %}
+{% formfield player.strategy %}
+{% formfield player.q_other_exp %}
+{% formfield player.q_improve %}
+{% formfield player.q_own_corona_concern %}
+{% formfield player.q_relat_corona_concern %}
+{% formfield player.q_own_corona_likelihood %}
+{% formfield player.q_relat_corona_likelihood %}
+
+{{ form.errors }}
+<button class="next_button btn btn-primary btn-large" id="Button">Next</button>
 <script>
-function autocomplete(inp, arr) {
+
+  function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
@@ -188,14 +211,13 @@ function autocomplete(inp, arr) {
 }
 /*An array containing all the country names in the world:*/
 var countries = ["My country is not listed", "Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+var subjects = ["Other", "Accounting and Finance", "Agriculture & Forestry", "Anatomy & Physiology", "Anthropology", "Archaeology", "Architecture", "Area Studies", "Art & Design", "Astronomy", "Biological Sciences", "Built Environment", "Business & Management Studies", "Chemistry", "Classics & Ancient History", "Communication and Media Studies", "Computer Science and Information Systems", "Dentistry", "Development Studies", "Earth and Marine Sciences", "Economics and Econometrics", "Education and Training", "Engineering - Aeronautical", "Engineering - Chemical", "Engineering - Civil and Structural", "Engineering - Electrical and Electronic", "Engineering - General", "Engineering - Manufacturing & Production", "Engineering - Mechanical", "Engineering - Mineral & Mining", "Engineering - Petroleum", "Engineering Management", "English Language and Literature", "Environmental Studies", "Ethnicity, Gender and Diversity", "Finance", "Geography", "Geology", "Geophysics", "Hospitality & Leisure Management", "Human Resources Management", "International Relations/Studies/Affairs", "Journalism", "Law and Legal Studies", "Library & Information Management", "Linguistics", "Logistics / Supply Chain Management", "Marketing", "Materials Sciences", "Mathematics", "Medicine", "Medicine Related Studies", "Modern Languages", "Nursing", "Performing Arts", "Pharmacology", "Pharmacy & Pharmacology", "Philosophy", "Physics & Astronomy", "Politics", "Psychology", "Public Policy", "Sociology", "Sports-related Courses", "Statistics and Operational Research", "Theology, Divinity & Religious Studies", "Urban Planning", "Veterinary Science", "Zoology"]
+/*initiate the autocomplete function on the "CountryInput" element, and pass along the countries array as possible autocomplete values:*/
 
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), countries);
-
+autocomplete(document.getElementById("demography_nationality"), countries);
+autocomplete(document.getElementById("demography_country"), countries);
+autocomplete(document.getElementById("q_study"), subjects);
 </script>
 
 </body>
 {% endblock %}
-{{ form.demography_country.errors }}
-{{ form.demography_age.errors }}
-{% formfield player.demography_gender %}
