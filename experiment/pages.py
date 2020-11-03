@@ -90,7 +90,7 @@ class Demographics(Page):
 
 class Questionnaire(Page):
     form_model = 'player'
-    form_fields = ['QT1', 'QT2', 'QT3', 'QT4', 'QT5', 'QT6', 'QT7', 'QT8', 'QT9', 'QT10', 'QT11', 'QT12', 'QT13', 'QT14', 'QT15', 'QT16', 'QT17', 'QT18', 'QT19', 'QT20', 'QT21', 'QT22', 'QT23', 'QT24', 'QT25', 'QT26', 'QT27', 'QT28', 'QT29', 'QT30']
+    form_fields = ['QT1', 'QT2', 'QT3', 'QT4', 'QT5', 'QT6', 'QT7', 'QT8', 'QT9', 'QT10', 'QT11', 'QT12', 'QT13', 'QT14', 'QT15', 'QT16', 'QT17', 'QT18', 'QT19', 'QT20', 'QT21', 'QT22', 'QT23', 'QT24', 'QT25', 'QT26', 'QT27', 'QT28', 'QT29', 'QT30', 'QT_check']
     def is_displayed(self):
         return (self.round_number == Constants.num_rounds) and (self.player.in_round(1).consent == 1)
 
@@ -98,6 +98,7 @@ class Results(Page):
     form_model = 'player'
     form_fields = ['lottery_result']
     def js_vars(self):
+        self.session.vars['TEST'] = 12
         lottery_result, round_number_lottery, decision_in_winning_round = self.player.lottery()
         return dict(
             lottery_result = lottery_result,

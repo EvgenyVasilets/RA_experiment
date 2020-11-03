@@ -122,7 +122,7 @@ h2 {
     <div class="hints">
         <p>Left button = move to left</p>
         <p>Right button = move to right</p>
-        <p>Enter = confirm selection</p>
+        <p>Enter or A = confirm selection</p>
     </div>
     <input type="hidden" id="confidence" name="confidence"/>
     <button class="next_button btn btn-primary btn-large" id="Button">Next</button>
@@ -133,15 +133,20 @@ h2 {
         var el = document.getElementById('myRange')
         el.focus();
         el.onblur = function () {
-            setTimeout(function () {
-                el.focus();
-            });
+        setTimeout(function () {
+        el.focus();
+        });
         };
         // remember the value
 
         document.onkeydown = function (e) {
-        $("#confidence").val(document.getElementById("myRange").value);
+            $("#confidence").val(document.getElementById("myRange").value);
+                e = e || window.event;
+                if (e.keyCode === 65){
+                Button.click()
+            }
         }
+
 
     </script>
 
