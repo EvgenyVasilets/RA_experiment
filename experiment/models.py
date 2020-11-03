@@ -18,7 +18,7 @@ This is the experiment investigating the nature of loss-aversion.
 
 
 class Constants(BaseConstants):
-    name_in_url = 'risk_aversion'
+    name_in_url = 'RAE'
     players_per_group = None
     num_trial_rounds = 44
     num_practice_rounds = 3
