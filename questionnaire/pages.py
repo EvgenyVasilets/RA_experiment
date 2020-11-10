@@ -2,76 +2,13 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 
-class ConsentForm(Page):
-    form_model = 'player'
-    form_fields = ['consent']
-    def is_displayed(self):
-        return self.round_number == 1
 
-class ConsentIfFalse(Page):
-    def is_displayed(self):
-        return (self.player.in_round(1).consent == 2) and (self.round_number == 1)
-
-class Instructions(Page):
-    form_model = 'player'
-    form_fields = ['rand_int', 'q1', 'q2', 'q3', 'q4']
-    def is_displayed(self):
-        return (self.round_number == 1) and (self.player.in_round(1).consent == 1)
-    def error_message(self, values):
-        if (values['q1'] != "44") or (values['q2'] != "1") or (values['q3'] != 1) or (values['q4'] != 2) and (self.round_number == 1):
-            return 'Some of your answers contain an error'
-
-class Instructions2(Page):
-    def is_displayed(self):
-            return (self.round_number == Constants.num_practice_rounds + 1) and (self.player.in_round(1).consent == 1)
-
-class Attention(Page):
-    def is_displayed(self):
-        return (self.round_number == 1) and (self.player.in_round(1).consent == 1)
-            
-class Trial_and_decision(Page):
-    form_model = 'player'
-    form_fields = ['decision', 'decision_time_ms', 'fixation_number_gains', 'fixation_number_losses']
-    def vars_for_template(self):
-        randomized_table = self.player.treatments_player()
-        row_for_the_trial = randomized_table.iloc[self.player.row_number]
-        return dict(
-            original_trial_num = row_for_the_trial['original_trial_num'],
-            fixation_time_gain = row_for_the_trial['fixation_time_gain'],
-            fixation_time_loss = row_for_the_trial['fixation_time_loss'],
-            lose_value = row_for_the_trial['lose_value'],
-            gain_value = row_for_the_trial['gain_value']
-        )
-    def is_displayed(self):
-        return self.player.in_round(1).consent == 1
-
-class Feedback(Page):
-    def vars_for_template(self):
-        return dict(
-            decision = self.player.decision,
-        )
-    def is_displayed(self):
-        return self.player.in_round(1).consent == 1
-
-class Confidence(Page):
-    form_model = 'player'
-    form_fields = ['confidence']
-    def is_displayed(self):
-        decision = self.player.decision
-        return (decision != -1) and (self.player.in_round(1).consent == 1)
-
-class ResultsWaitPage(WaitPage):
-    pass
-
-class Middle_page(Page):
-    def is_displayed(self):
-        return (self.round_number == Constants.num_practice_rounds + (Constants.num_trial_rounds/2)) and (self.player.in_round(1).consent == 1)
 
 class Demographics(Page):
     form_model='player'
     form_fields = ['demography_country', 'demography_age', 'demography_gender', 'demography_nationality', 'q_statistics', 'q_study', 'q_purpose', 'q_strategy_binary', 'strategy', 'q_other_exp', 'q_improve', 'q_own_corona_concern', 'q_relat_corona_concern', 'q_own_corona_likelihood', 'q_relat_corona_likelihood']
     def is_displayed(self):
-        return (self.round_number == Constants.num_rounds) and (self.player.in_round(1).consent == 1)
+        return True
     def error_message(self, values):
         # Write a message if some of the inputs are empty
         if (not values['q_study']) or (not values['demography_nationality']) or (not values['demography_country']):
@@ -92,13 +29,12 @@ class Questionnaire(Page):
     form_model = 'player'
     form_fields = ['QT1', 'QT2', 'QT3', 'QT4', 'QT5', 'QT6', 'QT7', 'QT8', 'QT9', 'QT10', 'QT11', 'QT12', 'QT13', 'QT14', 'QT15', 'QT16', 'QT17', 'QT18', 'QT19', 'QT20', 'QT21', 'QT22', 'QT23', 'QT24', 'QT25', 'QT26', 'QT27', 'QT28', 'QT29', 'QT30', 'QT_check']
     def is_displayed(self):
-        return (self.round_number == Constants.num_rounds) and (self.player.in_round(1).consent == 1)
+        return True
 
 class Results(Page):
     form_model = 'player'
     form_fields = ['lottery_result']
     def js_vars(self):
-        self.session.vars['TEST'] = 12
         lottery_result, round_number_lottery, decision_in_winning_round = self.player.lottery()
         return dict(
             lottery_result = lottery_result,
@@ -106,9 +42,8 @@ class Results(Page):
             decision_in_winning_round = decision_in_winning_round
         )
     def is_displayed(self):
-        return (self.round_number == Constants.num_rounds) and (self.player.in_round(1).consent == 1)
+        return True
 
 
-page_sequence = [ConsentForm, ConsentIfFalse, Instructions, Instructions2, Attention, Trial_and_decision, Feedback, Confidence, Middle_page, Demographics, Questionnaire,  Results]
-# real page sequence
-# page_sequence = [ConsentForm, ConsentIfFalse, Instructions, Instructions2, Attention, Trial_and_decision, Feedback, Confidence, Middle_page, Demographics, Questionnaire,  Results]
+page_sequence = [Demographics, Questionnaire, Results]
+#page_sequence = [Results]

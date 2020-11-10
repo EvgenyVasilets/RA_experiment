@@ -9,17 +9,17 @@
 /* Need this part to hide the debug info table in the bottom during the demo */
 
 
-    body {
-        background-color: black;
-        color: white;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        text-align: center;
-        font-size: calc((1em + 1vw)*.5);
-    }
+body {
+    background-color: black;
+    color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    font-size: calc((1em + 1vw)*.5);
+}
 .slidecontainer {
     width: 100%;
 
@@ -124,11 +124,15 @@ h2 {
         <p>Right button = move to right</p>
         <p>Enter or A = confirm selection</p>
     </div>
-    <input type="hidden" id="confidence" name="confidence"/>
+    <input type="hidden" id="confidence_X" name="confidence_X"/>
+    <input type="hidden" id="confidence_reaction_time_X" name="confidence_reaction_time_X"/>
     <button class="next_button btn btn-primary btn-large" id="Button">Next</button>
 </div>
 </body>
     <script type="text/javascript">
+        // start timer
+        var startTime, endTime;
+        t0 = start();
         // focus on the slider
         var el = document.getElementById('myRange')
         el.focus();
@@ -140,7 +144,7 @@ h2 {
         // remember the value
 
         document.onkeydown = function (e) {
-            $("#confidence").val(document.getElementById("myRange").value);
+            $("#confidence_X").val(document.getElementById("myRange").value);
                 e = e || window.event;
                 if (e.keyCode === 65){
                 Button.click()
@@ -148,6 +152,18 @@ h2 {
         }
 
 
+
+
+    // Functions
+    function start() {
+      startTime = new Date();
+    };
+
+    function end() {
+        endTime = new Date();
+        var timeDiff = endTime - startTime; //in ms
+        return timeDiff;
+    };
     </script>
 
 {% endblock %}

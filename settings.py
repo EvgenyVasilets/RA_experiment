@@ -15,7 +15,7 @@ SESSION_CONFIGS = [
         name='experiment',
         display_name='decision_making_experiment',
         num_demo_participants=1,
-        app_sequence=['experiment'],
+        app_sequence=['instructions', 'game', 'questionnaire'],
     )
 ]
 
