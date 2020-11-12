@@ -151,8 +151,11 @@ h2 {
             }
         }
 
+        document.getElementById("confidence_X").onsubmit = function(){
 
+            };
 
+        setInterval(CalculateTime, 1);
 
     // Functions
     function start() {
@@ -163,6 +166,11 @@ h2 {
         endTime = new Date();
         var timeDiff = endTime - startTime; //in ms
         return timeDiff;
+    };
+
+    function CalculateTime() {
+        t1 = end();
+        $("#confidence_reaction_time_X").val(t1);
     };
     </script>
 

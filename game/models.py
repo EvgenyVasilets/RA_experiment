@@ -64,11 +64,11 @@ class Player(BasePlayer):
     # each condition is repeated 2 times, so the repetition variable tracks this
     repetition = models.IntegerField()
 
-    # -1 - left was loss, 1 - left was gain
+    # 0 - left was loss, 1 - left was gain
     left_X = models.IntegerField()
-    # -1 - first was loss, 1 - first was gain
+    # 0 - first was loss, 1 - first was gain
     first_X = models.IntegerField()
-    # -1 - last was loss, 1 - last was gain
+    # 0 - last was loss, 1 - last was gain
     last_screen_X = models.IntegerField(blank=True)
 
     confidence_X = models.IntegerField(blank=True)

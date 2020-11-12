@@ -204,8 +204,8 @@ function checkKey(e) {
     // check whether upwards or downwards arrow is pressed AND that a participant started to look at the values
     if ((e.keyCode === 38 || e.keyCode === 40 ) && counter_1 + counter_2 >= 2){
         t1 = end();
-        if (e.keyCode === 38){$("#decision_X").val(1);}
-        if (e.keyCode === 40){$("#decision_X").val(0);}
+        if (e.keyCode === 38){$("#decision_X").val(2);}
+        if (e.keyCode === 40){$("#decision_X").val(1);}
         // define what counts counter_1 and counter_2
         if (val_first_to_appear.localeCompare("gain") === 0) {
         $("#fixation_number_gains_X").val(counter_1);
