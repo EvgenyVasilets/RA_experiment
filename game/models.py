@@ -34,8 +34,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-
-    prolific_id = models.StringField()
     # Condition numbers: 1 - equal, 2 - gains are longer, 3 - gains are super longer, 4 - losses are longer, 5 - losses are super longer
     condition_number_X = models.IntegerField()
     # number of a trial in a non-randomised data-frame
@@ -78,7 +76,6 @@ class Player(BasePlayer):
 
 
     def treatments_player(self):
-        self.prolific_id = self.participant.label
         # create the dictionary with the variables
         treatments_dic = {
             'repetition': [],
@@ -134,10 +131,10 @@ class Player(BasePlayer):
                         def fix_times_gains_and_losses(condition_name):
                             # The function returns 3 values: first one is gain, the second one is the loss fixation time and the third is the condition number
                             return {
-                                'losses_are_longer': [fixation_duration, fixation_duration_long, 4],
-                                'losses_are_super_longer': [fixation_duration, fixation_duration_super_long, 5],
-                                'gains_are_longer': [fixation_duration_long, fixation_duration, 2],
-                                'gains_are_super_longer': [fixation_duration_super_long, fixation_duration, 3],
+                                'losses_are_longer': [fixation_duration, fixation_duration_long, 2],
+                                'losses_are_super_longer': [fixation_duration, fixation_duration_super_long, 3],
+                                'gains_are_longer': [fixation_duration_long, fixation_duration, 4],
+                                'gains_are_super_longer': [fixation_duration_super_long, fixation_duration, 5],
                                 'equal': [fixation_duration, fixation_duration, 1],
                             }[condition_name]
                         fixation_time_gain, fixation_time_loss, condition_number = fix_times_gains_and_losses(condition_name)

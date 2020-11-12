@@ -202,12 +202,14 @@ class Player(BasePlayer):
         random.seed(self.participant.vars['rand_int'])
         winning_round = random.choice(range(self.participant.vars['number_of_practice_rounds']+1, self.participant.vars['number_of_all_rounds']+1))
         decision_in_winning_round, winning_value_gain, winning_value_loss = self.participant.vars[str(winning_round)]
-
-        if decision_in_winning_round == 1:
+        # if accepted
+        if decision_in_winning_round == 2:
             random.seed(self.participant.vars['rand_int'])
             final_value = random.choice([winning_value_loss, winning_value_gain])
+        # if no choice
         elif decision_in_winning_round == 0:
             final_value = winning_value_loss
+        # if rejected
         else:
             final_value = 0
         final_value_and_lottery = [final_value, winning_round, decision_in_winning_round]

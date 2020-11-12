@@ -29,9 +29,13 @@ class Instructions(Page):
 
     def before_next_page(self):
         self.participant.vars['rand_int'] = self.player.rand_int
+        self.player.prolific_id = self.participant.label
+
 
 
 class FullScreenPrompt(Page):
+    form_model = 'player'
+    form_fields = ['fullscreen']
     def is_displayed(self):
         return True
 

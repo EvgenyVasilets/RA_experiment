@@ -33,6 +33,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     rand_int = models.IntegerField()
+    prolific_id = models.StringField()
     # answers to the questions checking the understanding of instructions
     q1 = models.StringField(label="How many decisions are you going to make (without counting the practice trials)?",
                             blank=True)
