@@ -54,8 +54,8 @@ class Player(BasePlayer):
     # time per decision in ms
     decision_time_ms_X = models.IntegerField()
     # write down gains and loss conditions (high or low)
-    gain_condition_X = models.StringField()
-    loss_condition_X = models.StringField()
+    gain_condition_X = models.IntegerField()
+    loss_condition_X = models.IntegerField()
     fixation_time_gain_X = models.IntegerField()
     fixation_time_loss_X = models.IntegerField()
     # record the number of fixations for losses and gains
@@ -123,13 +123,13 @@ class Player(BasePlayer):
                         treatments_dic['repetition'].append(repetition)
                         # Define the value conditions
                         if gains == low_gains:
-                            treatments_dic['gain_condition_X'].append('low_gains')
+                            treatments_dic['gain_condition_X'].append(1)
                         elif gains == high_gains:
-                            treatments_dic['gain_condition_X'].append('high_gains')
+                            treatments_dic['gain_condition_X'].append(2)
                         if losses == high_losses:
-                            treatments_dic['loss_condition_X'].append('high_losses')
+                            treatments_dic['loss_condition_X'].append(2)
                         elif losses == low_losses:
-                            treatments_dic['loss_condition_X'].append('low_losses')
+                            treatments_dic['loss_condition_X'].append(1)
                         # Define fixation times for gains and losses in the trial
                         def fix_times_gains_and_losses(condition_name):
                             # The function returns 3 values: first one is gain, the second one is the loss fixation time and the third is the condition number
@@ -157,7 +157,7 @@ class Player(BasePlayer):
                 treatments_dic['loss_condition_X'].append(None)
                 treatments_dic['fixation_time_loss_X'].append(fixation_duration)
                 treatments_dic['fixation_time_gain_X'].append(fixation_duration)
-                treatments_dic['condition_number_X'].append(99)
+                treatments_dic['condition_number_X'].append(1)
                 treatments_dic['repetition'].append(repetition)
                 count += 1
         treatments_df = pd.DataFrame(treatments_dic)
