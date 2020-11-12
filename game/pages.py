@@ -46,7 +46,7 @@ class Confidence(Page):
     form_fields = ['confidence_X', 'confidence_reaction_time_X']
     def is_displayed(self):
         decision_X = self.player.decision_X
-        return (decision_X != -1) and (self.round_number <= Constants.num_rounds) #True
+        return (decision_X != 0) and (self.round_number <= Constants.num_rounds) #True
 
 class ResultsWaitPage(WaitPage):
     pass
@@ -55,8 +55,4 @@ class Middle_page(Page):
     def is_displayed(self):
         return (self.round_number == Constants.num_practice_rounds + (Constants.num_trial_rounds//2))
 
-
-
 page_sequence = [Instructions2, Attention, Trial_and_decision, Feedback, Confidence, Middle_page]
-# real page sequence
-# page_sequence = [ConsentForm, ConsentIfFalse, Instructions, Instructions2, Attention, Trial_and_decision, Feedback, Confidence, Middle_page, Demographics, Questionnaire,  Results]

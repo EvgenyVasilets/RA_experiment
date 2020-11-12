@@ -206,7 +206,7 @@ class Player(BasePlayer):
         if decision_in_winning_round == 1:
             random.seed(self.participant.vars['rand_int'])
             final_value = random.choice([winning_value_loss, winning_value_gain])
-        elif decision_in_winning_round == -1:
+        elif decision_in_winning_round == 0:
             final_value = winning_value_loss
         else:
             final_value = 0

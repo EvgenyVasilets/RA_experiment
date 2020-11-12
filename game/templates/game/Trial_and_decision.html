@@ -131,13 +131,13 @@ var values = ["gain", "loss"];
 var val_first_to_appear = values[Math.floor(Math.random() * values.length)];
 if (val_first_to_appear.localeCompare("loss") === 0) {
     var val_second_to_appear = "gain";
-    var first_container_val = -1;
-    var second_container_val = 1;
+    var first_container_val = 1;
+    var second_container_val = 2;
     $("#first_X").val(first_container_val);
 } else {
     var val_second_to_appear = "loss";
     var first_container_val = 1;
-    var second_container_val = -1;
+    var second_container_val = 2;
     $("#first_X").val(first_container_val);
 }
 
@@ -149,11 +149,11 @@ if (side_first_to_appear.localeCompare("left") === 0  && val_first_to_appear.loc
 } else if (side_first_to_appear.localeCompare("left") === 0  && val_first_to_appear.localeCompare("loss") === 0){
     document.getElementById("left_value").innerHTML = {{lose_value}}
     document.getElementById("right_value").innerHTML = {{gain_value}}
-    $("#left_X").val(-1);
+    $("#left_X").val(0);
 } else if (side_first_to_appear.localeCompare("right") === 0  && val_first_to_appear.localeCompare("gain") === 0){
     document.getElementById("left_value").innerHTML = {{lose_value}}
     document.getElementById("right_value").innerHTML = {{gain_value}}
-    $("#left_X").val(-1);
+    $("#left_X").val(0);
 } else if (side_first_to_appear.localeCompare("right") === 0  && val_first_to_appear.localeCompare("loss") === 0){
     document.getElementById("left_value").innerHTML = {{gain_value}}
     document.getElementById("right_value").innerHTML = {{lose_value}}
@@ -196,8 +196,8 @@ while (trial_time + cross_fix_time > wait_time)  {
 
 
 var Button = document.getElementById("Button");
-// make decision -1 by default (preserve this value if decision has not been made)
-$("#decision_X").val(-1)
+// make decision 0 by default (preserve this value if decision has not been made)
+$("#decision_X").val(0)
 function checkKey(e) {
     // This function is launched when a key is pressed. It checkes whether the key was the upward or downward arrow.
     e = e || window.event;
