@@ -40,7 +40,7 @@ class Player(BasePlayer):
     condition_number_X = models.IntegerField()
     # number of a trial in a non-randomised data-frame
     original_trial_num_X = models.IntegerField()
-    # 1 = accepted, 0 = rejected, -1 = no decision was made
+    # 1 = accepted, 2 = rejected, 0 = no decision was made
     decision_X = models.IntegerField(blank=True)
     # smaller,equal,larger
     condition_name_X = models.StringField()
