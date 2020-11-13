@@ -7,6 +7,7 @@ class Instructions2(Page):
     def is_displayed(self):
         return (self.round_number == Constants.num_practice_rounds + 1)
 
+    # we do this ti transfer the variables from the game to questionnaire app in order to run the lottery
     def before_next_page(self):
         self.participant.vars['number_of_all_rounds'] = Constants.num_rounds
         self.participant.vars['number_of_practice_rounds'] = Constants.num_practice_rounds
@@ -30,6 +31,7 @@ class Trial_and_decision(Page):
         )
     def is_displayed(self):
         return self.round_number <= Constants.num_rounds #True
+    # we do this ti transfer the variables from the game to questionnaire app in order to run the lottery
     def before_next_page(self):
         self.participant.vars[str(self.round_number)] = [self.player.decision_X, self.player.gain_value_X, self.player.lose_value_X]
 

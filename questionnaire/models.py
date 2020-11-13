@@ -198,6 +198,8 @@ class Player(BasePlayer):
         ], widget=widgets.RadioSelect)
     # how much a participant wins/loses
     lottery_result = models.IntegerField(blank=True)
+    # 0 = false, 1 = true
+    fullscreen_second_check = models.IntegerField()
     def lottery(self):
         random.seed(self.participant.vars['rand_int'])
         winning_round = random.choice(range(self.participant.vars['number_of_practice_rounds']+1, self.participant.vars['number_of_all_rounds']+1))

@@ -46,8 +46,14 @@
         <div class="centered">
             <img style='height: 100%; width: 100%; object-fit: contain' src="{% static 'global/experiment_pics/gif_new.gif' %}">
         </div>
+        <p> </p>
+        <p> After each decision situation, you will be informed about your decision. Next, we will ask you about your confidence in your decision. You will be presented with a scale that goes from 1 to 7 (See picture below). The scale will have a marker (green bar). You can move the marker to the left by pressing the <u>left key (←)</u> and you can move it to the right by pressing <u>right key (→)</u>. Once you have placed the marker in the confidence level you want to select, then you need to press the <u>Enter key</u> or the <u>letter A</u> to accept. After you have selected your confidence level, the next trial will begin. </p>
+        <div class="centered">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="{% static 'global/experiment_pics/confdence.png' %}">
+        </div>
         <h4 class="centered" style="margin-top: 50px">Questions</h4>
-        <p>Now we will ask you a couple of questions regarding the instructions in order to see if you understood correctly. After, we will show you 3 practice trials for you to get used to making decisions in the current experiment. The decisions on the next 3 trials will not count toward the final payment, they are simply there for you to try out how to make decisions in this experiment. After you completed the practice trials, we will notify you and  the actual experiment will start, with decisions that can count towards your final payout. After you finish all the trials, a short survey will be presented. Once you finish the survey, the random trial will be selected and your bonus payment will be calculated.</p>
+        <p>Now we will ask you a couple of questions regarding the instructions in order to see if you understood correctly. After, we will show you 3 practice trials for you to get used to making decisions in the current experiment. The decisions on the next 3 trials will not count toward the final payment, they are simply there for you to try out how to make decisions in this experiment. </p>
+        <p>After you completed the practice trials, we will notify you and  the actual experiment will start, with decisions that can count towards your final payout. After you finish all the trials, a short survey will be presented. Once you finish the survey, the random trial will be selected and your bonus payment will be calculated.</p>
 
         {% formfield player.q1 %}
         {% formfield player.q2 %}

@@ -108,10 +108,19 @@ input[type=submit] {
 {% formfield player.q_relat_corona_concern %}
 {% formfield player.q_own_corona_likelihood %}
 {% formfield player.q_relat_corona_likelihood %}
+<input type="hidden" id="fullscreen_second_check" name="fullscreen_second_check"/>
 
 {{ form.errors }}
 <button class="next_button btn btn-primary btn-large" id="Button">Next</button>
 <script>
+
+
+
+// check if the screen is fullscreen already
+if((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+    $("#fullscreen_second_check").val(1);
+}
+
 
   function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,

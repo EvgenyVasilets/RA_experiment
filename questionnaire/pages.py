@@ -6,7 +6,7 @@ from .models import Constants
 
 class Demographics(Page):
     form_model='player'
-    form_fields = ['demography_country', 'demography_age', 'demography_gender', 'demography_nationality', 'q_statistics', 'q_study', 'q_purpose', 'q_strategy_binary', 'strategy', 'q_other_exp', 'q_improve', 'q_own_corona_concern', 'q_relat_corona_concern', 'q_own_corona_likelihood', 'q_relat_corona_likelihood']
+    form_fields = ['fullscreen_second_check','demography_country', 'demography_age', 'demography_gender', 'demography_nationality', 'q_statistics', 'q_study', 'q_purpose', 'q_strategy_binary', 'strategy', 'q_other_exp', 'q_improve', 'q_own_corona_concern', 'q_relat_corona_concern', 'q_own_corona_likelihood', 'q_relat_corona_likelihood']
     def is_displayed(self):
         return True
     def error_message(self, values):
