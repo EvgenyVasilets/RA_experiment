@@ -35,32 +35,34 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     # Condition numbers: 1 - equal, 2 - gains are longer, 3 - gains are super longer, 4 - losses are longer, 5 - losses are super longer
-    condition_number_X = models.IntegerField()
+    cond_num_X = models.IntegerField()
     # number of a trial in a non-randomised data-frame
     original_trial_num_X = models.IntegerField()
     # 1 = accepted, 2 = rejected, 0 = no decision was made
-    decision_X = models.IntegerField(blank=True)
-    # smaller,equal,larger
-    condition_name_X = models.StringField()
+    dec_X = models.IntegerField(blank=True)
     # values in ECU
-    lose_value_X = models.IntegerField()
-    gain_value_X = models.IntegerField()
+    Loss_X = models.IntegerField()
+    Gain_X = models.IntegerField()
     # binary: 0 - real trials, 1 - training trials
     practice_trial = models.IntegerField()
     # win or lose
     row_number = models.IntegerField()
     # time per decision in ms
-    decision_time_ms_X = models.IntegerField()
-    # write down gains and loss conditions (high or low)
-    gain_condition_X = models.IntegerField()
-    loss_condition_X = models.IntegerField()
-    fixation_time_gain_X = models.IntegerField()
-    fixation_time_loss_X = models.IntegerField()
+    DT_X = models.IntegerField()
+    # write down gains and loss conditions ( 1 = high or 0 = low)
+    gain_cond_X = models.IntegerField()
+    loss_cond_X = models.IntegerField()
+    # Fixation time for losses and gains
+    FT_gain_X = models.IntegerField()
+    FT_loss_X = models.IntegerField()
     # record the number of fixations for losses and gains
-    fixation_number_gains_X = models.IntegerField(blank=True)
-    fixation_number_losses_X = models.IntegerField(blank=True)
-    # each condition is repeated 2 times, so the repetition variable tracks this
-    repetition = models.IntegerField()
+    FN_gains_X = models.IntegerField(blank=True)
+    FN_losses_X = models.IntegerField(blank=True)
+    # each condition is repeated 2 times, so the rep variable tracks this
+    rep = models.IntegerField()
+
+    # duration of the last fixation
+    last_fix_t = models.IntegerField(blank=True)
 
     # 0 - left was loss, 1 - left was gain
     left_X = models.IntegerField()
@@ -68,26 +70,30 @@ class Player(BasePlayer):
     first_X = models.IntegerField()
     # 0 - last was loss, 1 - last was gain
     last_screen_X = models.IntegerField(blank=True)
+    # time actually spent by participants on gains and losses per trial
+    t_gains_X = models.IntegerField()
+    t_losses_X = models.IntegerField()
 
-    confidence_X = models.IntegerField(blank=True)
+
+    conf_X = models.IntegerField(blank=True)
     # RT in ms
-    confidence_reaction_time_X = models.IntegerField(blank=True)
+    conf_RT_X = models.IntegerField(blank=True)
 
 
 
     def treatments_player(self):
         # create the dictionary with the variables
         treatments_dic = {
-            'repetition': [],
+            'rep': [],
             'original_trial_num_X': [],
-            'condition_number_X': [],
+            'cond_num_X': [],
             'condition_name_X': [],
-            'lose_value_X': [],
-            'gain_value_X': [],
-            'gain_condition_X':[],
-            'loss_condition_X':[],
-            'fixation_time_loss_X': [],
-            'fixation_time_gain_X': [],
+            'Loss_X': [],
+            'Gain_X': [],
+            'gain_cond_X':[],
+            'loss_cond_X':[],
+            'FT_loss_X': [],
+            'FT_gain_X': [],
         }
 
         condition_names = ['losses_are_longer', 'losses_are_super_longer', 'equal', 'gains_are_longer', 'gains_are_super_longer']  # -1 - losses, 0 - equal, 1 - gains (used to be last_fix_longer)
@@ -115,18 +121,18 @@ class Player(BasePlayer):
                         lose = random.choice(losses)
                         treatments_dic['original_trial_num_X'].append(count)
                         treatments_dic['condition_name_X'].append(condition_name)
-                        treatments_dic['lose_value_X'].append(lose)
-                        treatments_dic['gain_value_X'].append(gain)
-                        treatments_dic['repetition'].append(repetition)
+                        treatments_dic['Loss_X'].append(lose)
+                        treatments_dic['Gain_X'].append(gain)
+                        treatments_dic['rep'].append(repetition)
                         # Define the value conditions
                         if gains == low_gains:
-                            treatments_dic['gain_condition_X'].append(1)
+                            treatments_dic['gain_cond_X'].append(0)
                         elif gains == high_gains:
-                            treatments_dic['gain_condition_X'].append(2)
+                            treatments_dic['gain_cond_X'].append(1)
                         if losses == high_losses:
-                            treatments_dic['loss_condition_X'].append(2)
+                            treatments_dic['loss_cond_X'].append(1)
                         elif losses == low_losses:
-                            treatments_dic['loss_condition_X'].append(1)
+                            treatments_dic['loss_cond_X'].append(0)
                         # Define fixation times for gains and losses in the trial
                         def fix_times_gains_and_losses(condition_name):
                             # The function returns 3 values: first one is gain, the second one is the loss fixation time and the third is the condition number
@@ -138,30 +144,30 @@ class Player(BasePlayer):
                                 'equal': [fixation_duration, fixation_duration, 1],
                             }[condition_name]
                         fixation_time_gain, fixation_time_loss, condition_number = fix_times_gains_and_losses(condition_name)
-                        treatments_dic['fixation_time_gain_X'].append(fixation_time_gain)
-                        treatments_dic['fixation_time_loss_X'].append(fixation_time_loss)
-                        treatments_dic['condition_number_X'].append(condition_number)
+                        treatments_dic['FT_gain_X'].append(fixation_time_gain)
+                        treatments_dic['FT_loss_X'].append(fixation_time_loss)
+                        treatments_dic['cond_num_X'].append(condition_number)
                         count+= 1
         # add 2 more fixations (0, -30 and 0, 40)
         extra_fixations = [[-30, 0], [0, 40]]
         for repetition in range(2):
             for pair in extra_fixations:
                 treatments_dic['original_trial_num_X'].append(count)
-                treatments_dic['condition_name_X'].append('attention_check')
-                treatments_dic['lose_value_X'].append(pair[0])
-                treatments_dic['gain_value_X'].append(pair[1])
-                treatments_dic['gain_condition_X'].append(0)
-                treatments_dic['loss_condition_X'].append(0)
-                treatments_dic['fixation_time_loss_X'].append(fixation_duration)
-                treatments_dic['fixation_time_gain_X'].append(fixation_duration)
-                treatments_dic['condition_number_X'].append(1)
-                treatments_dic['repetition'].append(repetition)
+                treatments_dic['Loss_X'].append(pair[0])
+                treatments_dic['Gain_X'].append(pair[1])
+                treatments_dic['gain_cond_X'].append(0)
+                treatments_dic['loss_cond_X'].append(0)
+                treatments_dic['FT_loss_X'].append(400)
+                treatments_dic['FT_gain_X'].append(400)
+                treatments_dic['cond_num_X'].append(1)
+                treatments_dic['rep'].append(repetition)
+                treatments_dic['condition_name_X'].append('check')
                 count += 1
         treatments_df = pd.DataFrame(treatments_dic)
         # randomize the table using a randomly generated number (which will be the same for all trials for a specific participant)
         randomized_mixed_repetitions = treatments_df.sample(frac=1, random_state=self.participant.vars['rand_int'])
-        # make sure that first repetition is shown on the first half and the second is on the second half
-        randomized = randomized_mixed_repetitions.set_index('repetition', drop=False).sort_index()
+        # make sure that first rep is shown on the first half and the second is on the second half
+        randomized = randomized_mixed_repetitions.set_index('rep', drop=False).sort_index()
         # re-index the new table in order so we could present the new randomized table from start to the end
         randomized['new_indexing_X'] = list(range(0, len(randomized)))
         randomized = randomized.set_index(randomized['new_indexing_X'])
@@ -173,23 +179,22 @@ class Player(BasePlayer):
         elif pt == 1:
             # select random trials from trials with equal and not equal fixations
             if self.round_number % 2 == 0:
-                appropriate_trials = randomized[randomized['condition_name_X'] == 'equal']
+                appropriate_trials = randomized[randomized['cond_num_X'] == 1]
             else:
-                appropriate_trials = randomized[randomized['condition_name_X'] != 'equal']
+                appropriate_trials = randomized[randomized['cond_num_X'] != 1]
             row_number = int(appropriate_trials.sample().index[0])
 
         # write down the data for the participant for each row so we can see it during the data analysis
         self.original_trial_num_X = randomized.loc[row_number, 'original_trial_num_X']
-        self.lose_value_X = randomized.loc[row_number, 'lose_value_X']
-        self.gain_value_X = randomized.loc[row_number, 'gain_value_X']
-        self.condition_name_X = randomized.loc[row_number, 'condition_name_X']
+        self.Loss_X = randomized.loc[row_number, 'Loss_X']
+        self.Gain_X = randomized.loc[row_number, 'Gain_X']
         self.row_number = row_number
-        self.gain_condition_X = randomized.loc[row_number, 'gain_condition_X']
-        self.loss_condition_X = randomized.loc[row_number, 'loss_condition_X']
-        self.fixation_time_loss_X = randomized.loc[row_number, 'fixation_time_loss_X']
-        self.fixation_time_gain_X = randomized.loc[row_number, 'fixation_time_gain_X']
-        self.condition_number_X = randomized.loc[row_number, 'condition_number_X']
-        self.repetition = randomized.loc[row_number, 'repetition']
+        self.gain_cond_X = randomized.loc[row_number, 'gain_cond_X']
+        self.loss_cond_X = randomized.loc[row_number, 'loss_cond_X']
+        self.FT_loss_X = randomized.loc[row_number, 'FT_loss_X']
+        self.FT_gain_X = randomized.loc[row_number, 'FT_gain_X']
+        self.cond_num_X = randomized.loc[row_number, 'cond_num_X']
+        self.rep = randomized.loc[row_number, 'rep']
         return randomized
     def practice_trials(self):
         # this function defines whether these trials are training or test

@@ -3,7 +3,7 @@
 
 {% block title %}
 <p style="text-align: center;">Almost done!</p>
-<p style="font: 16px Arial;">Before we show you how much you have won, please, answer few questions.</p>
+<p style="font: 16px Arial;">Before we show you how much you have won, please, answer these questions.</p>
 {% endblock %}
 
 {% block content %}
@@ -80,38 +80,47 @@ input[type=submit] {
 
 <!--Make sure the form has the autocomplete function switched off:-->
 
-{% formfield player.QT1 %}
-{% formfield player.QT2 %}
-{% formfield player.QT3 %}
-{% formfield player.QT4 %}
-{% formfield player.QT5 %}
-{% formfield player.QT6 %}
-{% formfield player.QT7 %}
-{% formfield player.QT8 %}
-{% formfield player.QT9 %}
-{% formfield player.QT10 %}
-{% formfield player.QT11 %}
-{% formfield player.QT12 %}
-{% formfield player.QT13 %}
-{% formfield player.QT14 %}
-{% formfield player.QT15 %}
-{% formfield player.QT_check %}
-{% formfield player.QT16 %}
-{% formfield player.QT17 %}
-{% formfield player.QT18 %}
-{% formfield player.QT19 %}
-{% formfield player.QT20 %}
-{% formfield player.QT21 %}
-{% formfield player.QT22 %}
-{% formfield player.QT23 %}
-{% formfield player.QT24 %}
-{% formfield player.QT25 %}
-{% formfield player.QT26 %}
-{% formfield player.QT27 %}
-{% formfield player.QT28 %}
-{% formfield player.QT29 %}
-{% formfield player.QT30 %}
-
+<!--{% formfield player.QT1 %}-->
+<!--{% formfield player.QT2 %}-->
+<!--{% formfield player.QT3 %}-->
+<!--{% formfield player.QT4 %}-->
+<!--{% formfield player.QT5 %}-->
+<!--{% formfield player.QT6 %}-->
+<!--{% formfield player.QT7 %}-->
+<!--{% formfield player.QT8 %}-->
+<!--{% formfield player.QT9 %}-->
+<!--{% formfield player.QT10 %}-->
+<!--{% formfield player.QT11 %}-->
+<!--{% formfield player.QT12 %}-->
+<!--{% formfield player.QT13 %}-->
+<!--{% formfield player.QT14 %}-->
+<!--{% formfield player.QT15 %}-->
+<!--{% formfield player.QT_check %}-->
+<!--{% formfield player.QT16 %}-->
+<!--{% formfield player.QT17 %}-->
+<!--{% formfield player.QT18 %}-->
+<!--{% formfield player.QT19 %}-->
+<!--{% formfield player.QT20 %}-->
+<!--{% formfield player.QT21 %}-->
+<!--{% formfield player.QT22 %}-->
+<!--{% formfield player.QT23 %}-->
+<!--{% formfield player.QT24 %}-->
+<!--{% formfield player.QT25 %}-->
+<!--{% formfield player.QT26 %}-->
+<!--{% formfield player.QT27 %}-->
+<!--{% formfield player.QT28 %}-->
+<!--{% formfield player.QT29 %}-->
+<!--{% formfield player.QT30 %}-->
+<table class="table">
+    {% for field in form %}
+        <tr>
+            <th>{{ field.label }}</th>
+            {% for choice in field %}
+                <td>{{ choice }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
 
 
 <button class="next_button btn btn-primary btn-large" id="Button">Next</button>

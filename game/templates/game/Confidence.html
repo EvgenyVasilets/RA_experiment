@@ -126,8 +126,8 @@ h2 {
         <p>Right button = move to right</p>
         <p>Enter or A = confirm selection</p>
     </div>
-    <input type="hidden" id="confidence_X" name="confidence_X"/>
-    <input type="hidden" id="confidence_reaction_time_X" name="confidence_reaction_time_X"/>
+    <input type="hidden" id="conf_X" name="conf_X"/>
+    <input type="hidden" id="conf_RT_X" name="conf_RT_X"/>
     <button class="next_button btn btn-primary btn-large" id="Button">Next</button>
 </div>
 </body>
@@ -146,14 +146,14 @@ h2 {
         // remember the value
 
         document.onkeydown = function (e) {
-            $("#confidence_X").val(document.getElementById("myRange").value);
+            $("#conf_X").val(document.getElementById("myRange").value);
                 e = e || window.event;
                 if (e.keyCode === 65){
                 Button.click()
             }
         }
 
-        document.getElementById("confidence_X").onsubmit = function(){
+        document.getElementById("conf_X").onsubmit = function(){
 
             };
 
@@ -172,7 +172,7 @@ h2 {
 
     function CalculateTime() {
         t1 = end();
-        $("#confidence_reaction_time_X").val(t1);
+        $("#conf_RT_X").val(t1);
     };
     </script>
 

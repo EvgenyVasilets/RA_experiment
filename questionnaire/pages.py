@@ -6,7 +6,7 @@ from .models import Constants
 
 class Demographics(Page):
     form_model='player'
-    form_fields = ['fullscreen_second_check','demography_country', 'demography_age', 'demography_gender', 'demography_nationality', 'q_statistics', 'q_study', 'q_purpose', 'q_strategy_binary', 'strategy', 'q_other_exp', 'q_improve', 'q_own_corona_concern', 'q_relat_corona_concern', 'q_own_corona_likelihood', 'q_relat_corona_likelihood']
+    form_fields = ['fullscreen_second_check','demography_country', 'demography_age', 'demography_gender', 'demography_nationality', 'q_statistics', 'q_study', 'q_purpose', 'q_strategy_binary', 'strategy', 'q_other_exp', 'q_improve', 'q_own_corona_concern', 'q_relat_corona_concern']
     def is_displayed(self):
         return True
     def error_message(self, values):
@@ -27,7 +27,7 @@ class Demographics(Page):
 
 class Questionnaire(Page):
     form_model = 'player'
-    form_fields = ['QT1', 'QT2', 'QT3', 'QT4', 'QT5', 'QT6', 'QT7', 'QT8', 'QT9', 'QT10', 'QT11', 'QT12', 'QT13', 'QT14', 'QT15', 'QT16', 'QT17', 'QT18', 'QT19', 'QT20', 'QT21', 'QT22', 'QT23', 'QT24', 'QT25', 'QT26', 'QT27', 'QT28', 'QT29', 'QT30', 'QT_check']
+    form_fields = ['QT1', 'QT2', 'QT3', 'QT4', 'QT5', 'QT6', 'QT7', 'QT8', 'QT9', 'QT10', 'QT11', 'QT12', 'QT13', 'QT14', 'QT15', 'QT_check', 'QT16', 'QT17', 'QT18', 'QT19', 'QT20', 'QT21', 'QT22', 'QT23', 'QT24', 'QT25', 'QT26', 'QT27', 'QT28', 'QT29', 'QT30']
     def is_displayed(self):
         return True
 

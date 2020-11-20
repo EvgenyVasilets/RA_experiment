@@ -171,31 +171,31 @@ class Player(BasePlayer):
             [5, "Very Unconcerned"]
         ], widget=widgets.RadioSelect)
     q_relat_corona_concern = models.IntegerField(
-        label="Are you concerned about the health of your family members due to the novel coronavirus?", choices=[
+        label="Are you concerned about the health of your family members due to the Covid-19?", choices=[
             [1, "Very concerned"],
             [2, "Concerned"],
             [3, "Neither concerned nor unconcerned"],
             [4, "Unconcerned"],
             [5, "Very Unconcerned"]
         ], widget=widgets.RadioSelect)
-    q_own_corona_likelihood = models.IntegerField(
-        label="How likely do you think it is, that you will get infected by Covid-19 and experience serious health problems before the end of 2021?",
-        choices=[
-            [1, "Very Unlikely"],
-            [2, "Unlikely"],
-            [3, "Neither unlikely nor likely"],
-            [4, "Likely"],
-            [5, "Very Likely"]
-        ], widget=widgets.RadioSelect)
-    q_relat_corona_likelihood = models.IntegerField(
-        label="How likely do you think it is, that someone you know will die from Covid-19 before the end of 2021?",
-        choices=[
-            [1, "Very Unlikely"],
-            [2, "Unlikely"],
-            [3, "Neither unlikely nor likely"],
-            [4, "Likely"],
-            [5, "Very Likely"]
-        ], widget=widgets.RadioSelect)
+    # q_own_corona_likelihood = models.IntegerField(
+    #     label="How likely do you think it is, that you will get infected by Covid-19 and experience serious health problems before the end of 2021?",
+    #     choices=[
+    #         [1, "Very Unlikely"],
+    #         [2, "Unlikely"],
+    #         [3, "Neither unlikely nor likely"],
+    #         [4, "Likely"],
+    #         [5, "Very Likely"]
+    #     ], widget=widgets.RadioSelect)
+    # q_relat_corona_likelihood = models.IntegerField(
+    #     label="How likely do you think it is, that someone you know will die from Covid-19 before the end of 2021?",
+    #     choices=[
+    #         [1, "Very Unlikely"],
+    #         [2, "Unlikely"],
+    #         [3, "Neither unlikely nor likely"],
+    #         [4, "Likely"],
+    #         [5, "Very Likely"]
+    #     ], widget=widgets.RadioSelect)
     # how much a participant wins/loses
     lottery_result = models.IntegerField(blank=True)
     # 0 = false, 1 = true
