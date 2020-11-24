@@ -92,15 +92,15 @@ body {
         <p class="text" id="hint" style="top: 60%; font-size: calc((1em + 1vw)"> Press ↑ to accept or ↓ to reject the gamble</p>
     </div>
     <button class="next_button btn btn-primary btn-large" id="Button">Next</button>
-    <input type="hidden" id="dec_X" name="dec_X"/>
-    <input type="hidden" id="DT_X" name="DT_X"/>
+    <input type="hidden" id="dec" name="dec"/>
+    <input type="hidden" id="RT" name="RT"/>
 </body>
 
 <script language = "javascript" type = "text/javascript">
     document.getElementById("hint").style.visibility = "hidden";
-    if ({{dec_X}} == 1)  {
+    if ({{dec}} == 1)  {
     document.getElementById("feedback").innerHTML ="you rejected the gamble";
-    } else if ({{dec_X}} == 2)  {
+    } else if ({{dec}} == 2)  {
     document.getElementById("feedback").innerHTML ="you accepted the gamble";
     } else {
     document.getElementById("feedback").innerHTML ="respond faster";

@@ -130,39 +130,39 @@ class Player(BasePlayer):
                                             [4, 'Almost Always/Always']], widget=widgets.RadioSelectHorizontal)
     # demographic questions
 
-    demography_age = models.IntegerField(label="Your age", max=99, min=5)
-    demography_country = models.StringField(label="What country do you live in now?", blank=True)
-    demography_gender = models.IntegerField(label="Which gender do you identify most with?", choices=[
+    dem_age = models.IntegerField(label="Your age", max=99, min=5)
+    dem_country = models.StringField(label="What country do you live in now?", blank=True)
+    dem_gender = models.IntegerField(label="Which gender do you identify most with?", choices=[
         [1, 'Male'],
         [2, 'Female'],
         [3, 'Other'],
         [4, 'Prefer not to say']
     ])
-    demography_nationality = models.StringField(label="Nationality", blank=True)
-    q_statistics = models.IntegerField(label="Have you ever been instructed in Statistics and/or Calculus?", choices=[
+    dem_nat = models.StringField(label="Nationality", blank=True)
+    dem_stat = models.IntegerField(label="Have you ever been instructed in Statistics and/or Calculus?", choices=[
         [1, 'Yes'],
         [2, 'No'],
         [3, 'Do not know']
     ], widget=widgets.RadioSelect)
-    q_study = models.StringField(label="What did you study?", blank=True)
-    q_purpose = models.LongStringField(label="What do you think it was the purpose of this study?", blank=True)
-    q_strategy_binary = models.IntegerField(label="Did you use a specific strategy?", choices=[
+    dem_study = models.StringField(label="What did you study?", blank=True)
+    dem_purp = models.LongStringField(label="What do you think it was the purpose of this study?", blank=True)
+    dem_strBi = models.IntegerField(label="Did you use a specific dem_str?", choices=[
         [1, "Yes"],
         [2, "No"]
     ], widget=widgets.RadioSelect)
-    strategy = models.LongStringField(
+    dem_str = models.LongStringField(
         label="Could you explain how did you decide to accept or reject the gambles in each trial? (max - 250 characters)",
         max_length=250, blank=True)
-    q_other_exp = models.IntegerField(
+    dem_OE = models.IntegerField(
         label="Have you ever participated in an incentivized economic experiment like this one?", choices=[
             [1, "Yes"],
             [2, "No"],
             [3, "Do not know"]
         ], widget=widgets.RadioSelect)
-    q_improve = models.LongStringField(
+    dem_imp = models.LongStringField(
         label="Please help us improve our previous studies. Was there something that was not clear in the instructions? (max - 250 characters)",
         max_length=250, blank=True)
-    q_own_corona_concern = models.IntegerField(
+    dem_OCC = models.IntegerField(
         label="Are you concerned about your own health due to the novel coronavirus?", choices=[
             [1, "Very concerned"],
             [2, "Concerned"],
@@ -170,7 +170,7 @@ class Player(BasePlayer):
             [4, "Unconcerned"],
             [5, "Very Unconcerned"]
         ], widget=widgets.RadioSelect)
-    q_relat_corona_concern = models.IntegerField(
+    dem_RCC = models.IntegerField(
         label="Are you concerned about the health of your family members due to the Covid-19?", choices=[
             [1, "Very concerned"],
             [2, "Concerned"],
@@ -197,9 +197,10 @@ class Player(BasePlayer):
     #         [5, "Very Likely"]
     #     ], widget=widgets.RadioSelect)
     # how much a participant wins/loses
-    lottery_result = models.IntegerField(blank=True)
+    lot = models.IntegerField(blank=True)
+    rn_lot = models.IntegerField()
     # 0 = false, 1 = true
-    fullscreen_second_check = models.IntegerField()
+    fs_2 = models.IntegerField()
     def lottery(self):
         random.seed(self.participant.vars['rand_int'])
         winning_round = random.choice(range(self.participant.vars['number_of_practice_rounds']+1, self.participant.vars['number_of_all_rounds']+1))

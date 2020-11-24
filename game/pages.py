@@ -18,46 +18,45 @@ class Attention(Page):
             
 class Trial_and_decision(Page):
     form_model = 'player'
-    form_fields = ['dec_X', 'DT_X', 'FN_gains_X', 'FN_losses_X', 'left_X', 'first_X', 'last_screen_X', 'last_fix_t']
+    form_fields = ['dec', 'RT', 'FN_gains', 'FN_losses', 'left', 'first', 'last_screen', 'last_fix_t']
     def vars_for_template(self):
         randomized_table = self.player.treatments_player()
         row_for_the_trial = randomized_table.iloc[self.player.row_number]
         return dict(
-            original_trial_num = row_for_the_trial['original_trial_num_X'],
-            FT_gain_X = row_for_the_trial['FT_gain_X'],
-            FT_loss_X = row_for_the_trial['FT_loss_X'],
-            Loss_X = row_for_the_trial['Loss_X'],
-            Gain_X = row_for_the_trial['Gain_X']
+            FT_gain = row_for_the_trial['FT_gain'],
+            FT_loss = row_for_the_trial['FT_loss'],
+            Loss = row_for_the_trial['Loss'],
+            Gain = row_for_the_trial['Gain']
         )
     def is_displayed(self):
         return self.round_number <= Constants.num_rounds #True
     # we do this to transfer the variables from the game to questionnaire app in order to run the lottery
     def before_next_page(self):
-        self.participant.vars[str(self.round_number)] = [self.player.dec_X, self.player.Gain_X, self.player.Loss_X]
+        self.participant.vars[str(self.round_number)] = [self.player.dec, self.player.Gain, self.player.Loss]
         # Compute time spent on gains and losses overal per trial
-        t_gains = self.player.FT_gain_X * self.player.FN_gains_X
-        t_losses = self.player.FT_loss_X * self.player.FN_losses_X
+        t_gains = self.player.FT_gain * self.player.FN_gains
+        t_losses = self.player.FT_loss * self.player.FN_losses
         # adjust the last fixation time
-        if self.player.dec_X != 0:
-            if self.player.last_screen_X == 0: #loss
-                t_losses = t_losses - self.player.FT_loss_X + self.player.last_fix_t
-            elif self.player.last_screen_X == 1: #gain
-                t_gains = t_gains - self.player.FT_gain_X + self.player.last_fix_t
-        self.player.t_gains_X = t_gains
-        self.player.t_losses_X = t_losses
+        if self.player.dec != 0:
+            if self.player.last_screen == 0: #loss
+                t_losses = t_losses - self.player.FT_loss + self.player.last_fix_t
+            elif self.player.last_screen == 1: #gain
+                t_gains = t_gains - self.player.FT_gain + self.player.last_fix_t
+        self.player.t_gains = t_gains
+        self.player.t_losses = t_losses
 class Feedback(Page):
     def vars_for_template(self):
         return dict(
-            dec_X = self.player.dec_X,
+            dec = self.player.dec,
         )
     def is_displayed(self):
         return self.round_number <= Constants.num_rounds #True
 
 class Confidence(Page):
     form_model = 'player'
-    form_fields = ['conf_X', 'conf_RT_X']
+    form_fields = ['conf', 'conf_RT']
     def is_displayed(self):
-        dec_X = self.player.dec_X
+        dec_X = self.player.dec
         return (dec_X != 0) and (self.round_number <= Constants.num_rounds) #True
 
 class ResultsWaitPage(WaitPage):
