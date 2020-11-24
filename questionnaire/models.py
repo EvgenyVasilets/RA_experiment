@@ -202,12 +202,13 @@ class Player(BasePlayer):
     # 0 = false, 1 = true
     fs_2 = models.IntegerField()
     def lottery(self):
-        random.seed(self.participant.vars['rand_int'])
+        my_seed = self.participant.vars['rand_int']
+        random.seed(my_seed)
         winning_round = random.choice(range(self.participant.vars['number_of_practice_rounds']+1, self.participant.vars['number_of_all_rounds']+1))
         decision_in_winning_round, winning_value_gain, winning_value_loss = self.participant.vars[str(winning_round)]
         # if accepted
         if decision_in_winning_round == 2:
-            random.seed(self.participant.vars['rand_int'])
+            random.seed(my_seed)
             final_value = random.choice([winning_value_loss, winning_value_gain])
         # if no choice
         elif decision_in_winning_round == 0:

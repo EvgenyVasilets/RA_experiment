@@ -32,10 +32,12 @@ class Questionnaire(Page):
         return True
 
 class Results(Page):
-    form_model = 'player'
-    form_fields = ['lot']
+    # form_model = 'player'
+    # form_fields = ['lot', 'rn_lot']
     def js_vars(self):
         lot, rn_lot, decision_in_winning_round = self.player.lottery()
+        self.player.lot = lot
+        self.player.rn_lot = rn_lot
         return dict(
             lot = lot,
             rn_lot = rn_lot,
@@ -46,4 +48,4 @@ class Results(Page):
 
 
 page_sequence = [Demographics, Questionnaire, Results]
-#page_sequence = [Results]
+# page_sequence = [Demographics, Questionnaire, Results]

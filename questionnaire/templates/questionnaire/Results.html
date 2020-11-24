@@ -13,8 +13,8 @@
 
 <p>Click <a id="proliic_completion_link"></var>here</a> to go back to prolific.</p>
 
-<input type="hidden" id="lot" name="lot"/>
-<input type="hidden" id="rn_lot" name="rn_lot"/>
+<!--<input type="hidden" id="lot" name="lot"/>-->
+<!--<input type="hidden" id="rn_lot" name="rn_lot"/>-->
 
 <script>
     var prolific_code = "2029C1D0"
@@ -22,14 +22,15 @@
     var partial_link = "https://app.prolific.co/submissions/complete?cc="
     var proliic_completion_link = partial_link.concat(prolific_code)
     document.getElementById("proliic_completion_link").setAttribute("href", proliic_completion_link);
-
     var lot = js_vars.lot;
     var rn_lot = js_vars.rn_lot;
     var decision_in_winning_round = js_vars.decision_in_winning_round;
-    $("#lot").val(lot);
-    $("#rn_lot").val(rn_lot);
+//   $("#lot").val(lot);
+//    $("#rn_lot").val(rn_lot);
+
     document.getElementById('ECU_won').innerHTML = lot.toString();
     document.getElementById('rn_lot').innerHTML = rn_lot.toString();
+
     var euro_won = (lot + 40) * 0.025;
     euro_won = euro_won.toFixed(2);
     document.getElementById('final_prize').innerHTML = euro_won.toString();
